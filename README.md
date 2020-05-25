@@ -12,7 +12,7 @@ First, include the SDK in your HTML file :
         <script src="https://<SDK location>/sdk.js" defer></script>
     </head>
 ```
-We offer a hosted version of the SDK at https://embed.api.video//sdk.js
+We offer a hosted version of the SDK at https://embed.api.video/sdk.js
 
 Then, once the `window.onload` event has been trigered, create your player using the `apiVideoSdk.create` method:
 ```html
