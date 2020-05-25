@@ -9,7 +9,7 @@ First, include the SDK in your HTML file :
 ```html
     <head>
         ...
-        <script src="<SDK_HOST_TO_REPLACE>/sdk.js" defer></script>
+        <script src="https://embed.api.video/sdk.js" defer></script>
     </head>
 ```
 
