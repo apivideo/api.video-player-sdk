@@ -185,3 +185,75 @@ Here is how the page will look like with these changes :
     </script>
 </html>
 ```
+
+URL Fragments
+==================================
+
+### Introduction
+
+Some api.video Player's features may be activated with what's called `URL fragments`. 
+
+In other words, it means that the Api Video embed (iFrame) source URL may be completed by query parameters introduced by a hash (#).
+
+Here is the example of a Api Video embed code:
+```
+<iframe src="https://embed.api.video/vod/vi54sj9dAakOHJXKrUycCQZp" class="av_player" width="1280" height="720" frameborder="0" scrolling="no" allowfullscreen></iframe>
+```
+
+The source URL is `https://embed.api.video/vod/vi54sj9dAakOHJXKrUycCQZp`. 
+
+Any fragment must be appened to the end of this URL after a hash `#`.
+
+Example : `https://embed.api.video/vod/vi54sj9dAakOHJXKrUycCQZp#autoplay`
+
+Multiple fragments may be concatenated with a semi-colon `;`.
+
+Example : `https://embed.api.video/vod/vi54sj9dAakOHJXKrUycCQZp#autoplay;api`
+
+
+### Autoplay
+
+To launch video as soon as the player can, use `#autoplay`.
+
+
+### Sequence
+
+To start a video from `x`, use: `#t=x`.
+
+To start a video from `x` and pause it at `y`, use: `#t=x,y`.
+
+To start from the beginning and pause at `y`, use: `#t=,y`.
+
+Time may be expressed in the following formats:
+- `ss` (eg. `120` for 2 minutes)
+- `mm:ss` (ex. `2:30` for two minutes and a half)
+- `hh:mm:ss` (ex. `1:30:00` for one hour and a half)
+
+
+### Allow API
+
+To allow player to listen to API calls, use `#api`.
+
+
+### Hide poster title
+
+To hide the Player's title that is displayed on the bottom left corner of the poster, use `#hide-title`.
+
+
+### Hide controls
+
+To hide the Player's control bar, use `#hide-controls`.
+Caution as you should integrate your own controls if you prevent users from accessing Api Video Player native ones.
+
+### Force loop
+
+To hide the Player's control bar, use `#loop`.
+Caution as you should integrate your own controls if you prevent users from accessing Api Video Player native ones.
+
+
+### Complex example
+
+Here is a URL fragment that automatically launches a sequence (from 10 seconds to 15 seconds) and enables API calls:
+```
+<iframe src="https://embed.api.video/vod/vi54sj9dAakOHJXKrUycCQZp#t=10,15;autoplay;api;hide-title;hide-controls;loop" class="av_player" width="1280" height="720" frameborder="0" scrolling="no" allowfullscreen></iframe>
+```
