@@ -1,0 +1,15 @@
+{
+  "name": "api-video-player-sdk",
+  "version": "1.0.0",
+  "description": "api.video player SDK",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  }
+}

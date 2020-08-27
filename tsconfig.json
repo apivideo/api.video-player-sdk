@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "target": "ES3",
+        "outDir": "./dist/",
+        "strict": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
