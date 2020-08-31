@@ -3,9 +3,33 @@ SDK to control and interact with the api.video HTML5 Player
 
 # SDK usage
 
-## Integration
+## Installation method #1: requirejs
 
-First, include the SDK in your HTML file :
+If you use requirejs you can add the SDK as a dependency to your project with 
+
+```sh
+$ npm install --save @api.video/player-sdk
+```
+
+And then include the SDK with a simple `var apiVideoSdk = require('@api.video/player-sdk')`
+
+## Installation method #2: typescript
+
+If you use Typescript you can add the SDK as a dependency to your project with 
+
+```sh
+$ npm install --save @api.video/player-sdk
+```
+
+And then include the SDK with a simple `import PlayerSdk from '@api.video/player-sdk'`
+
+
+## Simple include in a javascript project
+
+Download [the SDK from the github repository](https://github.com/apivideo/player-sdk)
+
+Include the SDK in your HTML file like so:
+
 ```html
     <head>
         ...
