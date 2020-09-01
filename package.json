@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "api.video player SDK",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "webpack --mode production"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.0.2"
+    "ts-loader": "^8.0.3",
+    "typescript": "^4.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }

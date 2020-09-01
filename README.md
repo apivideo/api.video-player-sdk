@@ -11,7 +11,7 @@ If you use requirejs you can add the SDK as a dependency to your project with
 $ npm install --save @api.video/player-sdk
 ```
 
-And then include the SDK with a simple `var apiVideoSdk = require('@api.video/player-sdk')`
+And then include the SDK with a simple `var { PlayerSdk } = require('@api.video/player-sdk')`
 
 ## Installation method #2: typescript
 
@@ -21,7 +21,7 @@ If you use Typescript you can add the SDK as a dependency to your project with
 $ npm install --save @api.video/player-sdk
 ```
 
-And then include the SDK with a simple `import PlayerSdk from '@api.video/player-sdk'`
+And then include the SDK with a simple `import { PlayerSdk } from '@api.video/player-sdk'`
 
 
 ## Simple include in a javascript project
@@ -37,17 +37,17 @@ Include the SDK in your HTML file like so:
     </head>
 ```
 
-Then, once the `window.onload` event has been trigered, create your player using the `apiVideoSdk.create` method:
+Then, once the `window.onload` event has been trigered, create your player using `new PlayerSdk()`:
 ```html
     <script type="text/javascript">
-        window.player = apiVideoSdk.create("#target", { 
+        window.player = new PlayerSdk("#target", { 
             id: "<VIDEO_ID>", 
             // ... other optional options 
         });
     </script>
 ```
 
-The `create` method takes 2 parameters:
+The PlayerSdk constructor takes 2 parameters:
 - the ID of the DOM element in which you want to create the player
 - An object containing the player options. The available options are the following:
 
@@ -59,11 +59,11 @@ live            | no (default: false)   | boolean   | indicate that the video is
 autoplay        | no (default: false)   | boolean   | start playing the video as soon as it is loaded
 muted           | no (default: false)   | boolean   | the video is muted
 
-The `create` method returns a player instance that can be used to control the video playback, and to listen to player events.
+The sdk instance can be used to control the video playback, and to listen to player events.
 
 ## Controling the player
 
-The instance obtained by calling to the `create` method has the following methods:
+The sdk instance has the following methods:
 
 #### `play()` 
 Start playing the video.
@@ -154,7 +154,7 @@ Example:
     <script type="text/javascript">
         window.onload = function() {
             // create the player in the #target element
-            window.player = apiVideoSdk.create("#target", {
+            window.player = new PlayerSdk("#target", {
                 id: "123456"
             });
 
@@ -196,7 +196,7 @@ It's also possible to integrate the SDK in a page that already contains an embbe
 To attach the SDK to this player, you'll have to make the following changed in your page:
     
 - import the `sdk.js` script in your page,
-- call  `apiVideoSdk.create` once the page is loaded.
+- create a `PlayerSdk` instance once the page is loaded.
 
 Here is how the page will look like with these changes :
 
@@ -217,7 +217,7 @@ Here is how the page will look like with these changes :
     <script type="text/javascript">
         window.onload = function() {
             // attach the sdk to the existing player
-            window.player = apiVideoSdk.create("#myPlayer");
+            window.player = new PlayerSdk("#myPlayer");
 
             // window.player can now be used to control the player as described above
         };

@@ -1,6 +1,3 @@
-(window as any).apiVideoSdk = {
-    create: (targetId: string, options: any) => new PlayerSdk(targetId, options),
-}
 
 type UserEventListener = {
     event: string;
@@ -12,7 +9,7 @@ type PlayerEvent = {
     data: any;
 }
 
-class PlayerSdk {
+export class PlayerSdk {
     private static DEFAULT_IFRAME_URL = "https://embed.api.video/${type}/${id}";
     
     private iframe: HTMLIFrameElement|null = null;

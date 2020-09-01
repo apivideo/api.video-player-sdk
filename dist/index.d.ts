@@ -1,4 +1,5 @@
-export default class PlayerSdk {
+export declare class PlayerSdk {
+    private static DEFAULT_IFRAME_URL;
     private iframe;
     private playerReady;
     private onceReadyCallbacks;
@@ -8,7 +9,6 @@ export default class PlayerSdk {
     private playerOrigin;
     private postMessageCallbacks;
     private iframeUrl;
-    private static DEFAULT_IFRAME_URL;
     static nextSdkPlayerId: number;
     constructor(targetSelector: string, options?: any);
     createNewPlayer(iframe: HTMLIFrameElement, options: any): void;
