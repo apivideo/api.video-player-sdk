@@ -3,28 +3,51 @@ SDK to control and interact with the api.video HTML5 Player
 
 # SDK usage
 
-## Integration
+## Installation method #1: requirejs
 
-First, include the SDK in your HTML file :
+If you use requirejs you can add the SDK as a dependency to your project with 
+
+```sh
+$ npm install --save @api.video/player-sdk
+```
+
+And then include the SDK with a simple `var { PlayerSdk } = require('@api.video/player-sdk')`
+
+## Installation method #2: typescript
+
+If you use Typescript you can add the SDK as a dependency to your project with 
+
+```sh
+$ npm install --save @api.video/player-sdk
+```
+
+And then include the SDK with a simple `import { PlayerSdk } from '@api.video/player-sdk'`
+
+
+## Simple include in a javascript project
+
+Download [the SDK from the github repository](https://github.com/apivideo/player-sdk)
+
+Include the SDK in your HTML file like so:
+
 ```html
     <head>
         ...
-        <script src="https://<SDK location>/sdk.js" defer></script>
+        <script src="<SDK_HOST_TO_REPLACE>/sdk.js" defer></script>
     </head>
 ```
-We offer a hosted version of the SDK at https://embed.api.video/sdk.js
 
-Then, once the `window.onload` event has been trigered, create your player using the `apiVideoSdk.create` method:
+Then, once the `window.onload` event has been trigered, create your player using `new PlayerSdk()`:
 ```html
     <script type="text/javascript">
-        window.player = apiVideoSdk.create("#target", { 
+        window.player = new PlayerSdk("#target", { 
             id: "<VIDEO_ID>", 
             // ... other optional options 
         });
     </script>
 ```
 
-The `create` method takes 2 parameters:
+The PlayerSdk constructor takes 2 parameters:
 - the ID of the DOM element in which you want to create the player
 - An object containing the player options. The available options are the following:
 
@@ -36,11 +59,11 @@ live            | no (default: false)   | boolean   | indicate that the video is
 autoplay        | no (default: false)   | boolean   | start playing the video as soon as it is loaded
 muted           | no (default: false)   | boolean   | the video is muted
 
-The `create` method returns a player instance that can be used to control the video playback, and to listen to player events.
+The sdk instance can be used to control the video playback, and to listen to player events.
 
 ## Controling the player
 
-The instance obtained by calling to the `create` method has the following methods:
+The sdk instance has the following methods:
 
 #### `play()` 
 Start playing the video.
@@ -50,6 +73,8 @@ Pause the video playback.
 Mute the video.
 #### `unmute()` 
 Unmute the video.
+#### `setLoop(loop: boolean)`
+Define if the video should be played in loop.
 #### `seek(time: number)` 
 Add/substract the given number of seconds to/from the playback time. 
 
@@ -64,6 +89,20 @@ Example:
 ```javascript
     player.volume(0.75); // Set the volume to 75% 
 ``` 
+
+#### `getPaused(callback: (paused: Boolean) => void)`
+Check weither the video is paused.
+#### `getMuted(callback: (muted: Boolean) => void)`
+Check weither the video is muted.
+#### `getDuration(callback: (duration: Number) => void)`
+Retrieve the duration of the video.
+#### `getCurrentTime(callback: (currentTime: Number) => void)`
+Retrieve the current playback time of the video.
+#### `getVolume(callback: (volume: Number) => void)`
+Retrieve the current volume.
+#### `getLoop(callback: (loop: Boolean) => void)`
+Check weither the video is in loop mode.
+
 #### `destroy()` 
 Destroy the player instance.
 
@@ -115,7 +154,7 @@ Example:
     <script type="text/javascript">
         window.onload = function() {
             // create the player in the #target element
-            window.player = apiVideoSdk.create("#target", {
+            window.player = new PlayerSdk("#target", {
                 id: "123456"
             });
 
@@ -157,7 +196,7 @@ It's also possible to integrate the SDK in a page that already contains an embbe
 To attach the SDK to this player, you'll have to make the following changed in your page:
     
 - import the `sdk.js` script in your page,
-- call  `apiVideoSdk.create` once the page is loaded.
+- create a `PlayerSdk` instance once the page is loaded.
 
 Here is how the page will look like with these changes :
 
@@ -178,82 +217,10 @@ Here is how the page will look like with these changes :
     <script type="text/javascript">
         window.onload = function() {
             // attach the sdk to the existing player
-            window.player = apiVideoSdk.create("#myPlayer");
+            window.player = new PlayerSdk("#myPlayer");
 
             // window.player can now be used to control the player as described above
         };
     </script>
 </html>
-```
-
-URL Fragments
-==================================
-
-### Introduction
-
-Some api.video Player's features may be activated with what's called `URL fragments`. 
-
-In other words, it means that the Api Video embed (iFrame) source URL may be completed by query parameters introduced by a hash (#).
-
-Here is the example of a Api Video embed code:
-```
-<iframe src="https://embed.api.video/vod/vi54sj9dAakOHJXKrUycCQZp" class="av_player" width="1280" height="720" frameborder="0" scrolling="no" allowfullscreen></iframe>
-```
-
-The source URL is `https://embed.api.video/vod/vi54sj9dAakOHJXKrUycCQZp`. 
-
-Any fragment must be appened to the end of this URL after a hash `#`.
-
-Example : `https://embed.api.video/vod/vi54sj9dAakOHJXKrUycCQZp#autoplay`
-
-Multiple fragments may be concatenated with a semi-colon `;`.
-
-Example : `https://embed.api.video/vod/vi54sj9dAakOHJXKrUycCQZp#autoplay;api`
-
-
-### Autoplay
-
-To launch video as soon as the player can, use `#autoplay`.
-
-
-### Sequence
-
-To start a video from `x`, use: `#t=x`.
-
-To start a video from `x` and pause it at `y`, use: `#t=x,y`.
-
-To start from the beginning and pause at `y`, use: `#t=,y`.
-
-Time may be expressed in the following formats:
-- `ss` (eg. `120` for 2 minutes)
-- `mm:ss` (ex. `2:30` for two minutes and a half)
-- `hh:mm:ss` (ex. `1:30:00` for one hour and a half)
-
-
-### Allow API
-
-To allow player to listen to API calls, use `#api`.
-
-
-### Hide poster title
-
-To hide the Player's title that is displayed on the bottom left corner of the poster, use `#hide-title`.
-
-
-### Hide controls
-
-To hide the Player's control bar, use `#hide-controls`.
-Caution as you should integrate your own controls if you prevent users from accessing Api Video Player native ones.
-
-### Force loop
-
-To hide the Player's control bar, use `#loop`.
-Caution as you should integrate your own controls if you prevent users from accessing Api Video Player native ones.
-
-
-### Complex example
-
-Here is a URL fragment that automatically launches a sequence (from 10 seconds to 15 seconds) and enables API calls:
-```
-<iframe src="https://embed.api.video/vod/vi54sj9dAakOHJXKrUycCQZp#t=10,15;autoplay;api;hide-title;hide-controls;loop" class="av_player" width="1280" height="720" frameborder="0" scrolling="no" allowfullscreen></iframe>
 ```
