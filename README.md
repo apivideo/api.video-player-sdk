@@ -33,7 +33,7 @@ Include the SDK in your HTML file like so:
 ```html
     <head>
         ...
-        <script src="<SDK_HOST_TO_REPLACE>/sdk.js" defer></script>
+        <script src="<SDK_HOST_TO_REPLACE>/index.js" defer></script>
     </head>
 ```
 
@@ -138,7 +138,7 @@ Example:
 <html>
     <head>
         ...
-        <script src="/sdk.js" defer></script>
+        <script src="/index.js" defer></script>
     </head>
 
     <body>
@@ -204,7 +204,7 @@ Here is how the page will look like with these changes :
 <html>
     <head>
         ...
-        <script src="/sdk.js" defer></script>
+        <script src="/index.js" defer></script>
     </head>
 
     <body>
