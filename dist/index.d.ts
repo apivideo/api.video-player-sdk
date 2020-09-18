@@ -20,6 +20,7 @@ export declare class PlayerSdk {
     mute(): void;
     unmute(): void;
     seek(time: number): void;
+    setCurrentTime(time: number): void;
     setVolume(volume: number): void;
     setLoop(loop: boolean): void;
     getPaused(callback: (paused: Boolean) => void): void;

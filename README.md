@@ -77,6 +77,8 @@ Unmute the video.
 Define if the video should be played in loop.
 #### `seek(time: number)` 
 Add/substract the given number of seconds to/from the playback time. 
+#### `setCurrentTime(time: number)` 
+Set the current playback time (seconds). 
 
 Example:
 ```javascript
