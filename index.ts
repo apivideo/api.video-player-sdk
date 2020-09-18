@@ -112,6 +112,9 @@ export class PlayerSdk {
     seek(time: number) {
         this.postMessage({ message: 'seek', seek: time });
     }
+    setCurrentTime(time: number) {
+        this.postMessage({ message: 'setCurrentTime', currentTime: time });
+    }
     setVolume(volume: number) {
         this.postMessage({ message: 'setVolume', volume });
     }
