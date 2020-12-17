@@ -1,6 +1,6 @@
 module.exports = {
     entry: {
-        sdk: './index.ts',
+        sdk: ['url-polyfill', './index.ts']
     },
     module: {
         rules: [
