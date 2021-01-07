@@ -154,6 +154,12 @@ export class PlayerSdk {
     private urlParametersFromOptions(options: any) {
         options.ts = new Date().getTime();
         return Object.keys(options).map(function (key: string) {
+            if(key === "metadata" && options[key] instanceof Object) {
+                const metadata = options[key];
+                return Object.keys(metadata).map(function (metadataName: string) {
+                    return "metadata[" + metadataName + "]=" + metadata[metadataName];
+                }).join("&");
+            }
             return key + '=' + options[key];
         }).join('&');
     }
