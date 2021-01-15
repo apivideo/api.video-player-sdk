@@ -58,6 +58,8 @@ id              | **yes**               | string    | the id of the video
 live            | no (default: false)   | boolean   | indicate that the video is a live one
 autoplay        | no (default: false)   | boolean   | start playing the video as soon as it is loaded
 muted           | no (default: false)   | boolean   | the video is muted
+metadata        | no (default: empty)   | object    | object containing [metadata](https://api.video/blog/tutorials/dynamic-metadata)
+
 
 The sdk instance can be used to control the video playback, and to listen to player events.
 
@@ -157,7 +159,10 @@ Example:
         window.onload = function() {
             // create the player in the #target element
             window.player = new PlayerSdk("#target", {
-                id: "123456"
+                id: "123456",
+                metadata: {
+                    dogcat: "dog"
+                }
             });
 
             // when the 'play' event is received, disable the 'play' button and enable the 'pause' button
