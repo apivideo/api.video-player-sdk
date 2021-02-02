@@ -53,7 +53,7 @@ export class PlayerSdk {
         this.playerOrigin = new URL(this.iframeUrl).origin;
 
         window.addEventListener("message", (message) => {
-            if (message.origin === this.playerOrigin && message.data?.sdkPlayerId === this.sdkPlayerId) {
+            if (message.origin === this.playerOrigin && parseInt(message.data?.sdkPlayerId, 10) === this.sdkPlayerId) {
                 if (!!message.data.callbackId && !!this.postMessageCallbacks[message.data.callbackId]) {
                     this.postMessageCallbacks[message.data.callbackId](message.data.arg);
                 } else {
