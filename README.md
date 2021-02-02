@@ -1,6 +1,7 @@
 ![](https://github.com/apivideo/API_OAS_file/blob/master/apivideo_banner.png)
 
-# player-sdk
+# api.video player SDK
+
 SDK to control and interact with the api.video HTML5 Player
 
 # SDK usage
@@ -28,14 +29,12 @@ And then include the SDK with a simple `import { PlayerSdk } from '@api.video/pl
 
 ## Simple include in a javascript project
 
-Download [the SDK from the github repository](https://github.com/apivideo/player-sdk)
-
 Include the SDK in your HTML file like so:
 
 ```html
     <head>
         ...
-        <script src="<SDK_HOST_TO_REPLACE>/index.js" defer></script>
+        <script src="https://unpkg.com/@api.video/player-sdk" defer></script>
     </head>
 ```
 
@@ -96,17 +95,17 @@ Example:
     player.volume(0.75); // Set the volume to 75% 
 ``` 
 
-#### `getPaused(callback: (paused: Boolean) => void)`
+#### `getPaused(callback?: (paused: boolean) => void): Promise<boolean>`
 Check weither the video is paused.
-#### `getMuted(callback: (muted: Boolean) => void)`
+#### `getMuted(callback?: (muted: boolean) => void): Promise<boolean>`
 Check weither the video is muted.
-#### `getDuration(callback: (duration: Number) => void)`
+#### `getDuration(callback?: (duration: number) => void): Promise<number>`
 Retrieve the duration of the video.
-#### `getCurrentTime(callback: (currentTime: Number) => void)`
+#### `getCurrentTime(callback?: (currentTime: number) => void): Promise<number>`
 Retrieve the current playback time of the video.
-#### `getVolume(callback: (volume: Number) => void)`
+#### `getVolume(callback?: (volume: number) => void): Promise<number>`
 Retrieve the current volume.
-#### `getLoop(callback: (loop: Boolean) => void)`
+#### `getLoop(callback?: (loop: boolean) => void): Promise<boolean>`
 Check weither the video is in loop mode.
 
 #### `destroy()` 

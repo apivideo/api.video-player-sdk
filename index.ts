@@ -11,14 +11,14 @@ type PlayerEvent = {
 
 export class PlayerSdk {
     private static DEFAULT_IFRAME_URL = "https://embed.api.video/${type}/${id}";
-    
-    private iframe: HTMLIFrameElement|null = null;
+
+    private iframe: HTMLIFrameElement | null = null;
     private playerReady: boolean = false;
     private onceReadyCallbacks: (() => void)[] = [];
     private userEventListeners: UserEventListener[] = [];
     private sdkPlayerId: number;
     private sdkOrigin: string;
-    private playerOrigin: string|null = null;
+    private playerOrigin: string | null = null;
     private postMessageCallbacks: { [callbackId: string]: (arg: any) => void } = {};
     private iframeUrl: string;
 
@@ -33,28 +33,28 @@ export class PlayerSdk {
         if (target == null) {
             throw new Error("No match found for selector " + targetSelector);
         }
-        
-        this.iframe = target.tagName !== "IFRAME" 
+
+        this.iframe = target.tagName !== "IFRAME"
             ? this.createIframe(target)
             : target as HTMLIFrameElement
-        
+
         options = options || {};
         this.iframeUrl = options.iframeUrl || PlayerSdk.DEFAULT_IFRAME_URL;
 
-        if(!this.iframe.src) {
+        if (!this.iframe.src) {
             this.createNewPlayer(this.iframe, options)
         } else {
             this.bindExistingPlayer(this.iframe);
         }
-        
+
         this.onceReadyCallbacks = [];
         this.userEventListeners = [];
         this.playerReady = false;
         this.playerOrigin = new URL(this.iframeUrl).origin;
-        
+
         window.addEventListener("message", (message) => {
-            if (message.origin === this.playerOrigin && message.data?.sdkPlayerId == this.sdkPlayerId) {
-                if(!!message.data.callbackId && !!this.postMessageCallbacks[message.data.callbackId]) {
+            if (message.origin === this.playerOrigin && message.data?.sdkPlayerId === this.sdkPlayerId) {
+                if (!!message.data.callbackId && !!this.postMessageCallbacks[message.data.callbackId]) {
                     this.postMessageCallbacks[message.data.callbackId](message.data.arg);
                 } else {
                     this.onEvent(message.data);
@@ -64,6 +64,9 @@ export class PlayerSdk {
     }
 
     createNewPlayer(iframe: HTMLIFrameElement, options: any) {
+        if(!options.id) {
+            throw new Error("Missing id in options");
+        }
         const iframeUrl = this.iframeUrl
             .replace("${id}", options.id)
             .replace("${type}", options.live ? "live" : "vod");
@@ -76,7 +79,7 @@ export class PlayerSdk {
     }
 
     addParametersInIframeHash(url: string) {
-        url = this.addParameterInIframeHash(url, "sdkPlayerId", ""+this.sdkPlayerId);
+        url = this.addParameterInIframeHash(url, "sdkPlayerId", "" + this.sdkPlayerId);
         url = this.addParameterInIframeHash(url, "sdkOrigin", btoa(this.sdkOrigin));
         url = this.addParameterInIframeHash(url, "api");
         return url;
@@ -86,12 +89,12 @@ export class PlayerSdk {
         const indexOfHash = url.indexOf("#");
         const parameterAndValue = value ? `${parameter}:${value}` : parameter;
 
-        if(indexOfHash === -1) {
+        if (indexOfHash === -1) {
             return `${url}#${parameterAndValue}`;
         }
         const beforeHash = url.substr(0, indexOfHash);
         let afterHash = url.substr(indexOfHash + 1);
-        
+
         afterHash = afterHash.replace(new RegExp(`${parameter}(:[^;]+)?;?`), "");
 
         return `${beforeHash}#${parameterAndValue};${afterHash}`;
@@ -121,25 +124,25 @@ export class PlayerSdk {
     setLoop(loop: boolean) {
         this.postMessage({ message: 'setLoop', loop });
     }
-    getPaused(callback: (paused: Boolean) => void) {
-        this.postMessage({ message: 'getPaused' }, callback);
+    getPaused(callback?: (paused: boolean) => void): Promise<boolean> {
+        return this.postMessage({ message: 'getPaused' }, callback);
     }
-    getMuted(callback: (muted: Boolean) => void) {
-        this.postMessage({ message: 'getMuted' }, callback);
+    getMuted(callback?: (muted: boolean) => void): Promise<boolean> {
+        return this.postMessage({ message: 'getMuted' }, callback);
     }
-    getDuration(callback: (duration: Number) => void) {
-        this.postMessage({ message: 'getDuration' }, callback);
+    getDuration(callback?: (duration: number) => void): Promise<number> {
+        return this.postMessage({ message: 'getDuration' }, callback);
     }
-    getCurrentTime(callback: (currentTime: Number) => void) {
-        this.postMessage({ message: 'getCurrentTime' }, callback);
+    getCurrentTime(callback?: (currentTime: number) => void): Promise<number> {
+        return this.postMessage({ message: 'getCurrentTime' }, callback);
     }
-    getVolume(callback: (volume: Number) => void) {
-        this.postMessage({ message: 'getVolume' }, callback);
+    getVolume(callback?: (volume: number) => void): Promise<number> {
+        return this.postMessage({ message: 'getVolume' }, callback);
     }
-    getLoop(callback: (loop: Boolean) => void) {
-        this.postMessage({ message: 'getLoop' }, callback);
+    getLoop(callback?: (loop: boolean) => void): Promise<boolean> {
+        return this.postMessage({ message: 'getLoop' }, callback);
     }
-    
+
 
 
     addEventListener(event: string, callback: () => void) {
@@ -153,10 +156,10 @@ export class PlayerSdk {
 
     private urlParametersFromOptions(options: any) {
         options.ts = new Date().getTime();
-        return Object.keys(options).map(function (key: string) {
-            if(key === "metadata" && options[key] instanceof Object) {
+        return Object.keys(options).map((key: string) => {
+            if (key === "metadata" && options[key] instanceof Object) {
                 const metadata = options[key];
-                return Object.keys(metadata).map(function (metadataName: string) {
+                return Object.keys(metadata).map((metadataName: string) => {
                     return "metadata[" + metadataName + "]=" + metadata[metadataName];
                 }).join("&");
             }
@@ -185,40 +188,50 @@ export class PlayerSdk {
         }
     }
 
-    private postMessage(message: any, callback?: (arg: any) => void) {
-        if(!this.playerOrigin || !this.iframe?.contentWindow) {
-            return;
-        }
-        const messageWithPlayerId = {
-            ...message,
-            sdkPlayerId: this.sdkPlayerId
-        }
+    private postMessage<T>(message: any, callback?: (arg: T) => void): Promise<T> {
 
-        if(!!callback) {
+        return new Promise((resolve, reject): void => {
+
+            if (!this.playerOrigin || !this.iframe?.contentWindow) {
+                reject();
+                return;
+            }
+
+            const messageWithPlayerId = {
+                ...message,
+                sdkPlayerId: this.sdkPlayerId
+            }
+
             const callbackId = this.makeId(16);
-            this.postMessageCallbacks[callbackId] = callback;
-            messageWithPlayerId.callbackId = callbackId; 
-        }
+            this.postMessageCallbacks[callbackId] = (res: T) => {
+                resolve(res as T);
+                if (!!callback) {
+                    callback(res);
+                }
+            };
+            messageWithPlayerId.callbackId = callbackId;
 
-        if (this.playerReady && !!this.playerOrigin) {
-            this.iframe.contentWindow.postMessage(messageWithPlayerId, this.playerOrigin);
-        } else {
-            this.onceReadyCallbacks.push(() => this.playerOrigin && this.iframe?.contentWindow?.postMessage(messageWithPlayerId, this.playerOrigin));
-        }
+
+            if (this.playerReady && !!this.playerOrigin) {
+                this.iframe.contentWindow.postMessage(messageWithPlayerId, this.playerOrigin);
+            } else {
+                this.onceReadyCallbacks.push(() => this.playerOrigin && this.iframe?.contentWindow?.postMessage(messageWithPlayerId, this.playerOrigin));
+            }
+        });
     }
 
     private makeId(length: number) {
-        var result           = '';
-        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        var charactersLength = characters.length;
-        for ( var i = 0; i < length; i++ ) {
-           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
         return result;
-     }
+    }
 
     private createIframe(target: Element) {
-        var ifr = document.createElement('iframe');
+        const ifr = document.createElement('iframe');
         ifr.style.height = "100%";
         ifr.style.width = "100%";
         ifr.allowFullscreen = true;
