@@ -1,21 +1,42 @@
 {
   "name": "@api.video/player-sdk",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "api.video player SDK",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:apivideo/player-sdk.git"
+  },
+  "author": "api.video <ecosystem-team@api.video> (https://api.video/)",
+  "license": "MIT",
+  "keywords": [
+    "video",
+    "player",
+    "apivideo"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.js",
   "scripts": {
-    "build": "webpack --mode production"
+    "tslint": "tslint --project .",
+    "build": "npm run tslint && webpack --mode production",
+    "test": "npm run tslint && mocha -r ts-node/register -r jsdom-global/register 'test/**/*.ts'"
   },
-  "author": "",
-  "license": "MIT",
   "devDependencies": {
+    "@types/chai": "^4.2.14",
+    "@types/jsdom": "^16.2.6",
+    "@types/mocha": "^8.2.0",
+    "chai": "^4.2.0",
+    "jsdom": "^16.4.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^8.2.1",
     "ts-loader": "^8.0.3",
+    "ts-node": "^9.1.1",
+    "tslint": "^6.1.3",
     "typescript": "^4.0.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "core-js": "^3.8.3",
     "url-polyfill": "^1.1.12"
   }
 }

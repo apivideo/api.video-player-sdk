@@ -23,12 +23,12 @@ export declare class PlayerSdk {
     setCurrentTime(time: number): void;
     setVolume(volume: number): void;
     setLoop(loop: boolean): void;
-    getPaused(callback: (paused: Boolean) => void): void;
-    getMuted(callback: (muted: Boolean) => void): void;
-    getDuration(callback: (duration: Number) => void): void;
-    getCurrentTime(callback: (currentTime: Number) => void): void;
-    getVolume(callback: (volume: Number) => void): void;
-    getLoop(callback: (loop: Boolean) => void): void;
+    getPaused(callback?: (paused: boolean) => void): Promise<boolean>;
+    getMuted(callback?: (muted: boolean) => void): Promise<boolean>;
+    getDuration(callback?: (duration: number) => void): Promise<number>;
+    getCurrentTime(callback?: (currentTime: number) => void): Promise<number>;
+    getVolume(callback?: (volume: number) => void): Promise<number>;
+    getLoop(callback?: (loop: boolean) => void): Promise<boolean>;
     addEventListener(event: string, callback: () => void): void;
     destroy(): void;
     private urlParametersFromOptions;

@@ -1,6 +1,6 @@
 module.exports = {
     entry: {
-        sdk: ['url-polyfill', './index.ts']
+        sdk: ['core-js/stable/promise', 'url-polyfill', './index.ts']
     },
     module: {
         rules: [
@@ -12,7 +12,7 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: ['.ts', '.js'],
     },
     output: {
         libraryTarget: 'umd',
