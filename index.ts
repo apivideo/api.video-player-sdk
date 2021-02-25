@@ -71,17 +71,26 @@ export class PlayerSdk {
             .replace("${id}", options.id)
             .replace("${type}", options.live ? "live" : "vod");
 
-        this.setIframeSrc(iframe, this.addParametersInIframeHash(`${iframeUrl}?${this.urlParametersFromOptions(options)}`));
+        this.setIframeSrc(iframe, this.addParametersInIframeHash(`${iframeUrl}?${this.urlParametersFromOptions(options)}`, options));
     }
 
     bindExistingPlayer(iframe: HTMLIFrameElement) {
-        this.setIframeSrc(iframe, this.addParametersInIframeHash(iframe.src));
+        this.setIframeSrc(iframe, this.addParametersInIframeHash(iframe.src, {}));
     }
 
-    addParametersInIframeHash(url: string) {
-        url = this.addParameterInIframeHash(url, "sdkPlayerId", "" + this.sdkPlayerId);
+    addParametersInIframeHash(url: string, options: any) {
+        url = this.addParameterInIframeHash(url, "sdkPlayerId", ""+this.sdkPlayerId);
         url = this.addParameterInIframeHash(url, "sdkOrigin", btoa(this.sdkOrigin));
         url = this.addParameterInIframeHash(url, "api");
+
+        if(options.hideControls === true) {
+            url = this.addParameterInIframeHash(url, "hide-controls");
+        }
+
+        if(options.loop === true) {
+            url = this.addParameterInIframeHash(url, "loop");
+        }
+
         return url;
     }
 

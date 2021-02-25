@@ -60,6 +60,8 @@ live            | no (default: false)   | boolean   | indicate that the video is
 autoplay        | no (default: false)   | boolean   | start playing the video as soon as it is loaded
 muted           | no (default: false)   | boolean   | the video is muted
 metadata        | no (default: empty)   | object    | object containing [metadata](https://api.video/blog/tutorials/dynamic-metadata)
+hideControls    | no (default: false)   | boolean   | the controls are hidden
+loop            | no (default: false)   | boolean   | once the video is finished it automatically starts again
 
 
 The sdk instance can be used to control the video playback, and to listen to player events.

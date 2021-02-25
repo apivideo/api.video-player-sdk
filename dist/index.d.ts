@@ -13,7 +13,7 @@ export declare class PlayerSdk {
     constructor(targetSelector: string, options?: any);
     createNewPlayer(iframe: HTMLIFrameElement, options: any): void;
     bindExistingPlayer(iframe: HTMLIFrameElement): void;
-    addParametersInIframeHash(url: string): string;
+    addParametersInIframeHash(url: string, options: any): string;
     addParameterInIframeHash(url: string, parameter: string, value?: string): string;
     play(): void;
     pause(): void;

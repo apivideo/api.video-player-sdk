@@ -72,6 +72,16 @@ describe('Instanciation', () => {
     });
 
 
+    it('url fragment option are added', () => {
+
+        const iframe = createAndAppendChild("iframe", "target") as HTMLIFrameElement;
+
+        const sdk = new PlayerSdk("#target", { id: "123", hideControls: true, loop: true });
+
+        expect(iframe.src).to.match(/[^#]+#loop;hide-controls;.*/);
+
+    });
+
     const createAndAppendChild = (tagName: string, id: string): HTMLElement => {
         const elt = document.createElement(tagName);
         elt.id = id;
