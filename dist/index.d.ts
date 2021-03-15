@@ -1,3 +1,16 @@
+declare type SdkOptions = {
+    id: string;
+    live?: boolean;
+    autoplay?: boolean;
+    muted?: boolean;
+    metadata?: {
+        [key: string]: string;
+    };
+    hideControls?: boolean;
+    loop?: boolean;
+    hideTitle?: boolean;
+    iframeUrl?: string;
+};
 export declare class PlayerSdk {
     private static DEFAULT_IFRAME_URL;
     private iframe;
@@ -10,11 +23,8 @@ export declare class PlayerSdk {
     private postMessageCallbacks;
     private iframeUrl;
     static nextSdkPlayerId: number;
-    constructor(targetSelector: string, options?: any);
-    createNewPlayer(iframe: HTMLIFrameElement, options: any): void;
-    bindExistingPlayer(iframe: HTMLIFrameElement): void;
-    addParametersInIframeHash(url: string, options: any): string;
-    addParameterInIframeHash(url: string, parameter: string, value?: string): string;
+    constructor(targetSelector: string, userOptions?: SdkOptions);
+    loadConfig(options: SdkOptions): void;
     play(): void;
     pause(): void;
     mute(): void;
@@ -31,6 +41,10 @@ export declare class PlayerSdk {
     getLoop(callback?: (loop: boolean) => void): Promise<boolean>;
     addEventListener(event: string, callback: () => void): void;
     destroy(): void;
+    private createNewPlayer;
+    private buildPlayerUrl;
+    private bindExistingPlayer;
+    private addParametersInIframeHash;
     private urlParametersFromOptions;
     private onEvent;
     private onReady;
@@ -39,3 +53,4 @@ export declare class PlayerSdk {
     private createIframe;
     private setIframeSrc;
 }
+export {};

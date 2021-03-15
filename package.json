@@ -1,6 +1,6 @@
 {
   "name": "@api.video/player-sdk",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "api.video player SDK",
   "repository": {
     "type": "git",
