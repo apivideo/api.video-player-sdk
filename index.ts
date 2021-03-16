@@ -1,4 +1,3 @@
-
 type UserEventListener = {
     event: string;
     callback: () => void;
@@ -7,6 +6,20 @@ type UserEventListener = {
 type PlayerEvent = {
     type: string;
     data: any;
+}
+
+type SdkOptions = {
+    id: string;
+    live?: boolean;
+    autoplay?: boolean;
+    muted?: boolean;
+    metadata?: {
+        [key: string]: string;
+    }
+    hideControls?: boolean;
+    loop?: boolean;
+    hideTitle?: boolean;
+    iframeUrl?: string;
 }
 
 export class PlayerSdk {
@@ -24,7 +37,7 @@ export class PlayerSdk {
 
     static nextSdkPlayerId: number = 1;
 
-    constructor(targetSelector: string, options?: any) {
+    constructor(targetSelector: string, userOptions?: SdkOptions) {
         this.sdkPlayerId = PlayerSdk.nextSdkPlayerId++;
 
         this.sdkOrigin = `${window.location.protocol}//${window.location.host}`;
@@ -38,7 +51,7 @@ export class PlayerSdk {
             ? this.createIframe(target)
             : target as HTMLIFrameElement
 
-        options = options || {};
+        const options = userOptions || {} as SdkOptions;
         this.iframeUrl = options.iframeUrl || PlayerSdk.DEFAULT_IFRAME_URL;
 
         if (!this.iframe.src) {
@@ -63,50 +76,11 @@ export class PlayerSdk {
         }, false);
     }
 
-    createNewPlayer(iframe: HTMLIFrameElement, options: any) {
-        if(!options.id) {
-            throw new Error("Missing id in options");
-        }
-        const iframeUrl = this.iframeUrl
-            .replace("${id}", options.id)
-            .replace("${type}", options.live ? "live" : "vod");
-
-        this.setIframeSrc(iframe, this.addParametersInIframeHash(`${iframeUrl}?${this.urlParametersFromOptions(options)}`, options));
-    }
-
-    bindExistingPlayer(iframe: HTMLIFrameElement) {
-        this.setIframeSrc(iframe, this.addParametersInIframeHash(iframe.src, {}));
-    }
-
-    addParametersInIframeHash(url: string, options: any) {
-        url = this.addParameterInIframeHash(url, "sdkPlayerId", ""+this.sdkPlayerId);
-        url = this.addParameterInIframeHash(url, "sdkOrigin", btoa(this.sdkOrigin));
-        url = this.addParameterInIframeHash(url, "api");
-
-        if(options.hideControls === true) {
-            url = this.addParameterInIframeHash(url, "hide-controls");
-        }
-
-        if(options.loop === true) {
-            url = this.addParameterInIframeHash(url, "loop");
-        }
-
-        return url;
-    }
-
-    addParameterInIframeHash(url: string, parameter: string, value?: string): string {
-        const indexOfHash = url.indexOf("#");
-        const parameterAndValue = value ? `${parameter}:${value}` : parameter;
-
-        if (indexOfHash === -1) {
-            return `${url}#${parameterAndValue}`;
-        }
-        const beforeHash = url.substr(0, indexOfHash);
-        let afterHash = url.substr(indexOfHash + 1);
-
-        afterHash = afterHash.replace(new RegExp(`${parameter}(:[^;]+)?;?`), "");
-
-        return `${beforeHash}#${parameterAndValue};${afterHash}`;
+    loadConfig(options: SdkOptions) {
+        this.postMessage({
+            message: 'loadConfig',
+            url: this.buildPlayerUrl(options)
+        });
     }
 
     play() {
@@ -152,8 +126,6 @@ export class PlayerSdk {
         return this.postMessage({ message: 'getLoop' }, callback);
     }
 
-
-
     addEventListener(event: string, callback: () => void) {
         this.userEventListeners.push({ event, callback });
     }
@@ -163,16 +135,72 @@ export class PlayerSdk {
         setTimeout(() => this.iframe?.parentElement?.removeChild(this.iframe), 0);
     }
 
-    private urlParametersFromOptions(options: any) {
-        options.ts = new Date().getTime();
+    private createNewPlayer(iframe: HTMLIFrameElement, options: SdkOptions) {
+        this.setIframeSrc(iframe, this.buildPlayerUrl(options));
+    }
+
+    private buildPlayerUrl(options: SdkOptions) {
+        if (!options.id) {
+            throw new Error("Missing id in options");
+        }
+
+        const url = this.iframeUrl
+            .replace("${id}", options.id)
+            .replace("${type}", options.live ? "live" : "vod");
+
+        return this.addParametersInIframeHash(`${url}?${this.urlParametersFromOptions(options)}`, options);
+    }
+
+    private bindExistingPlayer(iframe: HTMLIFrameElement) {
+        this.setIframeSrc(iframe, this.addParametersInIframeHash(iframe.src, {} as SdkOptions));
+    }
+
+    private addParametersInIframeHash(url: string, options: SdkOptions) {
+        const addParameterInIframeHash = (parameter: string, value?: string) => {
+            const indexOfHash = url.indexOf("#");
+            const parameterAndValue = value ? `${parameter}:${value}` : parameter;
+
+            if (indexOfHash === -1) {
+                return `${url}#${parameterAndValue}`;
+            }
+            const beforeHash = url.substr(0, indexOfHash);
+            let afterHash = url.substr(indexOfHash + 1);
+
+            afterHash = afterHash.replace(new RegExp(`${parameter}(:[^;]+)?;?`), "");
+
+            return `${beforeHash}#${parameterAndValue};${afterHash}`;
+        };
+
+        url = addParameterInIframeHash("sdkPlayerId", "" + this.sdkPlayerId);
+        url = addParameterInIframeHash("sdkOrigin", btoa(this.sdkOrigin));
+        url = addParameterInIframeHash("api");
+
+        if (options.hideControls === true) {
+            url = addParameterInIframeHash("hide-controls");
+        }
+
+        if (options.loop === true) {
+            url = addParameterInIframeHash("loop");
+        }
+
+        if (options.hideTitle === true) {
+            url = addParameterInIframeHash("hide-title");
+        }
+
+        return url;
+    }
+
+    private urlParametersFromOptions(options: SdkOptions) {
+        const optionsAsAny = options as any;
+        optionsAsAny.ts = new Date().getTime();
         return Object.keys(options).map((key: string) => {
-            if (key === "metadata" && options[key] instanceof Object) {
-                const metadata = options[key];
+            if (key === "metadata" && optionsAsAny[key] instanceof Object) {
+                const metadata = optionsAsAny[key];
                 return Object.keys(metadata).map((metadataName: string) => {
                     return "metadata[" + metadataName + "]=" + metadata[metadataName];
                 }).join("&");
             }
-            return key + '=' + options[key];
+            return key + '=' + optionsAsAny[key];
         }).join('&');
     }
 
