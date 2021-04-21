@@ -1,6 +1,6 @@
 {
   "name": "@api.video/player-sdk",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "api.video player SDK",
   "repository": {
     "type": "git",
@@ -15,6 +15,7 @@
   ],
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "tslint": "tslint --project .",
     "build": "npm run tslint && webpack --mode production",

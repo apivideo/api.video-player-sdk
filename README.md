@@ -73,17 +73,17 @@ The PlayerSdk constructor takes 2 parameters:
 - `options: SdkOptions` an object containing the player options. The available options are the following:
 
 
-Option name     | Mandatory             | Type      | Description
----:            | ---                   | ---       | ---
-id              | **yes**               | string    | the id of the video
-token           | yes for private video | string    | the [private video](https://api.video/blog/tutorials/tutorial-private-videos) url token
-live            | no (default: false)   | boolean   | indicate that the video is a live one
-autoplay        | no (default: false)   | boolean   | start playing the video as soon as it is loaded
-muted           | no (default: false)   | boolean   | the video is muted
-metadata        | no (default: empty)   | object    | object containing [metadata](https://api.video/blog/tutorials/dynamic-metadata) (see **Full example** below)
-hideControls    | no (default: false)   | boolean   | the controls are hidden
-hideTitle       | no (default: false)   | boolean   | the video title is hidden
-loop            | no (default: false)   | boolean   | once the video is finished it automatically starts again
+|  Option name | Mandatory             | Type    | Description                                                                                                  |
+| -----------: | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+|           id | **yes**               | string  | the id of the video                                                                                          |
+|        token | yes for private video | string  | the [private video](https://api.video/blog/tutorials/tutorial-private-videos) url token                      |
+|         live | no (default: false)   | boolean | indicate that the video is a live one                                                                        |
+|     autoplay | no (default: false)   | boolean | start playing the video as soon as it is loaded                                                              |
+|        muted | no (default: false)   | boolean | the video is muted                                                                                           |
+|     metadata | no (default: empty)   | object  | object containing [metadata](https://api.video/blog/tutorials/dynamic-metadata) (see **Full example** below) |
+| hideControls | no (default: false)   | boolean | the controls are hidden                                                                                      |
+|    hideTitle | no (default: false)   | boolean | the video title is hidden                                                                                    |
+|         loop | no (default: false)   | boolean | once the video is finished it automatically starts again                                                     |
 
 
 The sdk instance can be used to control the video playback, and to listen to player events.
@@ -111,10 +111,20 @@ The sdk instance has the following methods:
 > Mute the video.
 #### `unmute()` 
 > Unmute the video.
+#### `hideControls()` 
+> Hide the player controls.
+#### `showControls()` 
+> Show the player controls.
 #### `setLoop(loop: boolean)`
 > Define if the video should be played in loop.
 #### `seek(time: number)` 
 > Add/substract the given number of seconds to/from the playback time. 
+#### `setPlaybackRate(rate: number)` 
+> Set the current playback rate. 
+>Example:
+>```javascript
+>    player.setPlaybackRate(2); // Play at 2x rate
+>```
 #### `setCurrentTime(time: number)` 
 > Set the current playback time (seconds). 
 >
@@ -142,6 +152,8 @@ The sdk instance has the following methods:
 > Retrieve the current volume.
 #### `getLoop(callback?: (loop: boolean) => void): Promise<boolean>`
 > Check weither the video is in loop mode.
+#### `getPlaybackRate(callback?: (rate: number) => void): Promise<number>`
+> Retrieve the playback rate.
 #### `destroy()` 
 > Destroy the player instance.
 #### `addEventListener(event: string, callback: () => void)` 
@@ -149,23 +161,38 @@ The sdk instance has the following methods:
 > 
 > Available events are the following:
 > 
-> Event name          | Description
-> ---:                | --- 
-> ready               | The player is ready to play
-> firstplay           | The video started to play for the first time
-> play                | The video started to play (for the first time or after having been paused)
-> pause               | The video has been paused
-> ended               | The playback as reached the ended of the video
-> error               | An error occured
-> fullscreenchange    | The player goes to (or goes back from) full screen
-> playerresize        | The player size has changed
-> seeking             | The player is seeking
+> Event name            | Description | Parameter
+> ---:                  | ---         | ---
+> controlsdisabled      | Controls are now disabled | -
+> controlsenabled       | Controls are now enabled | -
+> ended                 | The playback as reached the ended of the video | -
+> error                 | An error occured | -
+> firstplay             | The video started to play for the first time | -
+> fullscreenchange      | The player goes to (or goes back from) full screen | -
+> mouseenter            | The user's mouse entered the player area | -
+> mouseleave            | The user's mouse leaved the player area | -
+> pause                 | The video has been paused | -
+> play                  | The video started to play (for the first time or after having been paused) | -
+> playerresize          | The player size has changed | -
+> qualitychange         | The video quality has changed  | `{ resolution: { height: number, width: number } }`
+> ratechange            | The blayback rate has changed | -
+> ready                 | The player is ready to play | -
+> resize                | The video size has changed
+> seeking               | The player is seeking | -
+> timeupdate            | The playback time has changed  | `{ currentTime: number }`
+> useractive            | The user is active | -
+> userinactive          | The user is inactive | -
+> volumechange          | The volume has changed  | `{ volume: number }`
 > 
-> Example:
+> Examples:
 > ```javascript
 >   // listen to the 'play' event
 >   player.addEventListener('play', function() { 
 >       console.log('play event received'); 
+>   });
+> 
+>   player.addEventListener('qualitychange', function(ev) { 
+>       console.log(`quality has changed: ${ev.resolution.width}x${ev.resolution.height}`); 
 >   });
 > ```
 

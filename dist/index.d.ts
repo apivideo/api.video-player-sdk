@@ -26,6 +26,8 @@ export declare class PlayerSdk {
     constructor(targetSelector: string, userOptions?: SdkOptions);
     loadConfig(options: SdkOptions): void;
     play(): void;
+    hideControls(): void;
+    showControls(): void;
     pause(): void;
     mute(): void;
     unmute(): void;
@@ -33,10 +35,12 @@ export declare class PlayerSdk {
     setCurrentTime(time: number): void;
     setVolume(volume: number): void;
     setLoop(loop: boolean): void;
+    setPlaybackRate(rate: number): void;
     getPaused(callback?: (paused: boolean) => void): Promise<boolean>;
     getMuted(callback?: (muted: boolean) => void): Promise<boolean>;
     getDuration(callback?: (duration: number) => void): Promise<number>;
     getCurrentTime(callback?: (currentTime: number) => void): Promise<number>;
+    getPlaybackRate(callback?: (rate: number) => void): Promise<number>;
     getVolume(callback?: (volume: number) => void): Promise<number>;
     getLoop(callback?: (loop: boolean) => void): Promise<boolean>;
     addEventListener(event: string, callback: () => void): void;
