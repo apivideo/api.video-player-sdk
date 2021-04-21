@@ -1,6 +1,6 @@
 type UserEventListener = {
     event: string;
-    callback: () => void;
+    callback: (data?: any) => void;
 }
 
 type PlayerEvent = {
@@ -86,6 +86,12 @@ export class PlayerSdk {
     play() {
         this.postMessage({ message: 'play' });
     }
+    hideControls() {
+        this.postMessage({ message: 'hideControls' });
+    }
+    showControls() {
+        this.postMessage({ message: 'showControls' });
+    }
     pause() {
         this.postMessage({ message: 'pause' });
     }
@@ -107,6 +113,9 @@ export class PlayerSdk {
     setLoop(loop: boolean) {
         this.postMessage({ message: 'setLoop', loop });
     }
+    setPlaybackRate(rate: number) {
+        this.postMessage({ message: 'setPlaybackRate', rate });
+    }
     getPaused(callback?: (paused: boolean) => void): Promise<boolean> {
         return this.postMessage({ message: 'getPaused' }, callback);
     }
@@ -118,6 +127,9 @@ export class PlayerSdk {
     }
     getCurrentTime(callback?: (currentTime: number) => void): Promise<number> {
         return this.postMessage({ message: 'getCurrentTime' }, callback);
+    }
+    getPlaybackRate(callback?: (rate: number) => void): Promise<number> {
+        return this.postMessage({ message: 'getPlaybackRate' }, callback);
     }
     getVolume(callback?: (volume: number) => void): Promise<number> {
         return this.postMessage({ message: 'getVolume' }, callback);
@@ -205,9 +217,13 @@ export class PlayerSdk {
     }
 
     private onEvent(data: PlayerEvent) {
+        const userData = { ...data } as any;
+        delete userData.type;
+        delete userData.sdkPlayerId;
+
         this.userEventListeners
             .filter(uel => uel.event === data.type)
-            .forEach(uel => uel.callback());
+            .forEach(uel => uel.callback(userData));
 
         switch (data.type) {
             case 'sdkSync':

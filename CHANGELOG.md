@@ -1,6 +1,10 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.6] - 2021-04-21
+- Add setPlaybackRate(), showControls(), hideControls() & getPlaybackRate methods
+- Add  new player events
+
 ## [1.2.5] - 2021-03-16
 - Add loadConfig method
 - Add "hideTitle" & "token" options
