@@ -20,6 +20,7 @@ type SdkOptions = {
     loop?: boolean;
     hideTitle?: boolean;
     iframeUrl?: string;
+    token?: string;
 }
 
 export class PlayerSdk {
@@ -206,7 +207,7 @@ export class PlayerSdk {
         const optionsAsAny = options as any;
         optionsAsAny.ts = new Date().getTime();
         return Object.keys(options).map((key: string) => {
-            if (key === "metadata" && optionsAsAny[key] instanceof Object) {
+            if (key === "metadata" && typeof optionsAsAny[key] === "object") {
                 const metadata = optionsAsAny[key];
                 return Object.keys(metadata).map((metadataName: string) => {
                     return "metadata[" + metadataName + "]=" + metadata[metadataName];

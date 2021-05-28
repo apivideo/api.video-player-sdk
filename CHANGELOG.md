@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.7] - 2021-05-28
+- Add "token" in SdkOptions type
+
 ## [1.2.6] - 2021-04-21
 - Add setPlaybackRate(), showControls(), hideControls() & getPlaybackRate methods
 - Add  new player events

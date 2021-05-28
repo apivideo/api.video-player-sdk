@@ -92,7 +92,7 @@ The sdk instance can be used to control the video playback, and to listen to pla
 
 The sdk instance has the following methods:
 
-#### `load(options: SdkOptions)`
+#### `loadConfig(options: SdkOptions)`
 > Load a new video in the same instance of the player. Available options are the same as the ones passed to the SDK constructor (see available).
 >
 > Example:
