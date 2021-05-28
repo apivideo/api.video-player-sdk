@@ -10,6 +10,7 @@ declare type SdkOptions = {
     loop?: boolean;
     hideTitle?: boolean;
     iframeUrl?: string;
+    token?: string;
 };
 export declare class PlayerSdk {
     private static DEFAULT_IFRAME_URL;
