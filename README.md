@@ -56,7 +56,7 @@ Include the SDK in your HTML file like so:
 </head>
 ```
 
-Then, once the `window.onload` event has been trigered, create your player using `new PlayerSdk()`:
+Then, once the `window.onload` event has been triggered, create your player using `new PlayerSdk()`:
 ```html
 <script type="text/javascript">
     window.player = new PlayerSdk("#target", { 
@@ -151,7 +151,7 @@ The sdk instance has the following methods:
 #### `getVolume(callback?: (volume: number) => void): Promise<number>`
 > Retrieve the current volume.
 #### `getLoop(callback?: (loop: boolean) => void): Promise<boolean>`
-> Check weither the video is in loop mode.
+> Check whether the video is in loop mode.
 #### `getPlaybackRate(callback?: (rate: number) => void): Promise<number>`
 > Retrieve the playback rate.
 #### `destroy()` 
@@ -175,7 +175,7 @@ The sdk instance has the following methods:
 > play                  | The video started to play (for the first time or after having been paused) | -
 > playerresize          | The player size has changed | -
 > qualitychange         | The video quality has changed  | `{ resolution: { height: number, width: number } }`
-> ratechange            | The blayback rate has changed | -
+> ratechange            | The playback rate has changed | -
 > ready                 | The player is ready to play | -
 > resize                | The video size has changed
 > seeking               | The player is seeking | -
@@ -243,7 +243,7 @@ The sdk instance has the following methods:
 
 ## Control an existing embedded player using the SDK
 
-It's also possible to integrate the SDK in a page that already contains an embbeded player in order to control it and to listen to its events. Let's consider the following page :
+It's also possible to integrate the SDK in a page that already contains an embedded player in order to control it and to listen to its events. Let's consider the following page :
 
 ```html
 <html>
