@@ -21,6 +21,7 @@ type SdkOptions = {
     hideTitle?: boolean;
     iframeUrl?: string;
     token?: string;
+    showSubtitles?: boolean;
 }
 
 export class PlayerSdk {
@@ -92,6 +93,12 @@ export class PlayerSdk {
     }
     showControls() {
         this.postMessage({ message: 'showControls' });
+    }
+    hideSubtitles() {
+        this.postMessage({ message: 'hideSubtitles' });
+    }
+    showSubtitles() {
+        this.postMessage({ message: 'showSubtitles' });
     }
     pause() {
         this.postMessage({ message: 'pause' });
@@ -198,6 +205,10 @@ export class PlayerSdk {
 
         if (options.hideTitle === true) {
             url = addParameterInIframeHash("hide-title");
+        }
+
+        if (options.showSubtitles === true) {
+            url = addParameterInIframeHash("show-subtitles");
         }
 
         return url;

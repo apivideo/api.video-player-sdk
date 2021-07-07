@@ -11,6 +11,7 @@ declare type SdkOptions = {
     hideTitle?: boolean;
     iframeUrl?: string;
     token?: string;
+    showSubtitles?: boolean;
 };
 export declare class PlayerSdk {
     private static DEFAULT_IFRAME_URL;
@@ -29,6 +30,8 @@ export declare class PlayerSdk {
     play(): void;
     hideControls(): void;
     showControls(): void;
+    hideSubtitles(): void;
+    showSubtitles(): void;
     pause(): void;
     mute(): void;
     unmute(): void;
