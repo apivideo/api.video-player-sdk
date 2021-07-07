@@ -73,17 +73,18 @@ The PlayerSdk constructor takes 2 parameters:
 - `options: SdkOptions` an object containing the player options. The available options are the following:
 
 
-|  Option name | Mandatory             | Type    | Description                                                                                                  |
-| -----------: | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
-|           id | **yes**               | string  | the id of the video                                                                                          |
-|        token | yes for private video | string  | the [private video](https://api.video/blog/tutorials/tutorial-private-videos) url token                      |
-|         live | no (default: false)   | boolean | indicate that the video is a live one                                                                        |
-|     autoplay | no (default: false)   | boolean | start playing the video as soon as it is loaded                                                              |
-|        muted | no (default: false)   | boolean | the video is muted                                                                                           |
-|     metadata | no (default: empty)   | object  | object containing [metadata](https://api.video/blog/tutorials/dynamic-metadata) (see **Full example** below) |
-| hideControls | no (default: false)   | boolean | the controls are hidden                                                                                      |
-|    hideTitle | no (default: false)   | boolean | the video title is hidden                                                                                    |
-|         loop | no (default: false)   | boolean | once the video is finished it automatically starts again                                                     |
+|   Option name | Mandatory             | Type    | Description                                                                                                  |
+| ------------: | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+|            id | **yes**               | string  | the id of the video                                                                                          |
+|         token | yes for private video | string  | the [private video](https://api.video/blog/tutorials/tutorial-private-videos) url token                      |
+|          live | no (default: false)   | boolean | indicate that the video is a live one                                                                        |
+|      autoplay | no (default: false)   | boolean | start playing the video as soon as it is loaded                                                              |
+|         muted | no (default: false)   | boolean | the video is muted                                                                                           |
+|      metadata | no (default: empty)   | object  | object containing [metadata](https://api.video/blog/tutorials/dynamic-metadata) (see **Full example** below) |
+|  hideControls | no (default: false)   | boolean | the controls are hidden                                                                                      |
+|     hideTitle | no (default: false)   | boolean | the video title is hidden                                                                                    |
+| showSubtitles | no (default: false)   | boolean | the video subtitles are shown by default                                                                     |
+|          loop | no (default: false)   | boolean | once the video is finished it automatically starts again                                                     |
 
 
 The sdk instance can be used to control the video playback, and to listen to player events.
@@ -115,6 +116,10 @@ The sdk instance has the following methods:
 > Hide the player controls.
 #### `showControls()` 
 > Show the player controls.
+#### `hideSubtitles()` 
+> Hide the player subtitles.
+#### `showSubtitles()` 
+> Show the player subtitles.
 #### `setLoop(loop: boolean)`
 > Define if the video should be played in loop.
 #### `seek(time: number)` 

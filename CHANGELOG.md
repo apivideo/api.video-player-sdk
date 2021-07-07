@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.8] - 2021-05-28
+- Add showSubtitles() / hideSubtitles() methods
+  
 ## [1.2.7] - 2021-05-28
 - Add "token" in SdkOptions type
 
