@@ -8,6 +8,19 @@ type PlayerEvent = {
     data: any;
 }
 
+export type PlayerTheme = {
+    text?: string;
+    link?: string;
+    linkHover?: string;
+    trackPlayed?: string;
+    trackUnplayed?: string;
+    trackBackground?: string;
+    backgroundTop?: string;
+    backgroundBottom?: string;
+    backgroundText?: string;
+    linkActive?: string;
+}
+
 type SdkOptions = {
     id: string;
     live?: boolean;
@@ -123,6 +136,9 @@ export class PlayerSdk {
     }
     setPlaybackRate(rate: number) {
         this.postMessage({ message: 'setPlaybackRate', rate });
+    }
+    setTheme(theme: PlayerTheme) {
+        this.postMessage({ message: 'setTheme', theme });
     }
     getPaused(callback?: (paused: boolean) => void): Promise<boolean> {
         return this.postMessage({ message: 'getPaused' }, callback);
