@@ -135,14 +135,41 @@ The sdk instance has the following methods:
 >
 >Example:
 >```javascript
->    player.seek(-15); // Go 15 seconds backward
+>    player.setCurrentTime(-15); // Go 15 seconds backward
 >``` 
 #### `setVolume(volume: number)` 
 > Change the audio volume to the given value. From 0 to 1 (0 = muted, 1 = 100%).
 >
 > Example:
 > ```javascript
->     player.volume(0.75); // Set the volume to 75% 
+>     player.setVolume(0.75); // Set the volume to 75% 
+> ``` 
+#### `setTheme(theme: PlayerTheme)` 
+> Change the appearance of the player.
+> 
+> `theme` parameter type definition:
+> ```typescript
+> type PlayerTheme = {
+>     text?: string;
+>     link?: string;
+>     linkHover?: string;
+>     trackPlayed?: string;
+>     trackUnplayed?: string;
+>     trackBackground?: string;
+>     backgroundTop?: string;
+>     backgroundBottom?: string;
+>     backgroundText?: string;
+>     linkActive?: string;
+> }
+> ```
+>
+> Example:
+> ```javascript
+>     player.setTheme({
+>         link: "red",
+>         linkHover: "rgba(0, 255, 0, 1)",
+>         backgroundBottom: "#0000ff",
+>     }); 
 > ``` 
 
 #### `getPaused(callback?: (paused: boolean) => void): Promise<boolean>`

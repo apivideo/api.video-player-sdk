@@ -1,3 +1,15 @@
+export declare type PlayerTheme = {
+    text?: string;
+    link?: string;
+    linkHover?: string;
+    trackPlayed?: string;
+    trackUnplayed?: string;
+    trackBackground?: string;
+    backgroundTop?: string;
+    backgroundBottom?: string;
+    backgroundText?: string;
+    linkActive?: string;
+};
 declare type SdkOptions = {
     id: string;
     live?: boolean;
@@ -40,6 +52,7 @@ export declare class PlayerSdk {
     setVolume(volume: number): void;
     setLoop(loop: boolean): void;
     setPlaybackRate(rate: number): void;
+    setTheme(theme: PlayerTheme): void;
     getPaused(callback?: (paused: boolean) => void): Promise<boolean>;
     getMuted(callback?: (muted: boolean) => void): Promise<boolean>;
     getDuration(callback?: (duration: number) => void): Promise<number>;
