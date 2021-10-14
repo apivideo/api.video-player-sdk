@@ -75,7 +75,7 @@ The PlayerSdk constructor takes 2 parameters:
 
 |   Option name | Mandatory             | Type    | Description                                                                                                  |
 | ------------: | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
-|            id | **yes**               | string  | the id of the video                                                                                          |
+|            id | **yes**               | string  | the id of the video (videoId or liveStreamId)                                                                                         |
 |         token | yes for private video | string  | the [private video](https://api.video/blog/tutorials/tutorial-private-videos) url token                      |
 |          live | no (default: false)   | boolean | indicate that the video is a live one                                                                        |
 |      autoplay | no (default: false)   | boolean | start playing the video as soon as it is loaded                                                              |
