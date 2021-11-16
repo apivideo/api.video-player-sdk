@@ -1,20 +1,61 @@
-[![badge](https://img.shields.io/twitter/follow/api_video?style=social)](https://twitter.com/intent/follow?screen_name=api_video)
-
-[![badge](https://img.shields.io/github/stars/apivideo/player-sdk?style=social)](https://github.com/apivideo/player-sdk)
-
-[![badge](https://img.shields.io/discourse/topics?server=https%3A%2F%2Fcommunity.api.video)](https://community.api.video)
-
+[![badge](https://img.shields.io/twitter/follow/api_video?style=social)](https://twitter.com/intent/follow?screen_name=api_video) &nbsp; [![badge](https://img.shields.io/github/stars/apivideo/api.video-player-sdk?style=social)](https://github.com/apivideo/api.video-player-sdk) &nbsp; [![badge](https://img.shields.io/discourse/topics?server=https%3A%2F%2Fcommunity.api.video)](https://community.api.video)
 ![](https://github.com/apivideo/API_OAS_file/blob/master/apivideo_banner.png)
+<h1 align="center">api.video player SDK</h1>
 
-[api.video](https://api.video) is an API that encodes on the go to facilitate immediate playback, enhancing viewer streaming experiences across multiple devices and platforms. You can stream live or on-demand online videos within minutes.
+[api.video](https://api.video) is the video infrastructure for product builders. Lightning fast video APIs for integrating, scaling, and managing on-demand & low latency live streaming features in your app.
 
-# api.video player SDK
+
+# Table of contents
+
+- [Table of contents](#table-of-contents)
+- [Project description](#project-description)
+- [Getting started](#getting-started)
+  - [Installation](#installation)
+    - [Method #1: requirejs](#method-1-requirejs)
+    - [Method #2: typescript](#method-2-typescript)
+    - [Method #2: simple include in a javascript project](#method-2-simple-include-in-a-javascript-project)
+- [Documentation](#documentation)
+  - [Instanciation](#instanciation)
+  - [Methods](#methods)
+      - [`loadConfig(options: SdkOptions)`](#loadconfigoptions-sdkoptions)
+      - [`play()`](#play)
+      - [`pause()`](#pause)
+      - [`mute()`](#mute)
+      - [`unmute()`](#unmute)
+      - [`hideControls()`](#hidecontrols)
+      - [`showControls()`](#showcontrols)
+      - [`hideSubtitles()`](#hidesubtitles)
+      - [`showSubtitles()`](#showsubtitles)
+      - [`setLoop(loop: boolean)`](#setlooploop-boolean)
+      - [`seek(time: number)`](#seektime-number)
+      - [`setPlaybackRate(rate: number)`](#setplaybackraterate-number)
+      - [`setCurrentTime(time: number)`](#setcurrenttimetime-number)
+      - [`setVolume(volume: number)`](#setvolumevolume-number)
+      - [`setTheme(theme: PlayerTheme)`](#setthemetheme-playertheme)
+      - [`getPaused(callback?: (paused: boolean) => void): Promise<boolean>`](#getpausedcallback-paused-boolean--void-promiseboolean)
+      - [`getMuted(callback?: (muted: boolean) => void): Promise<boolean>`](#getmutedcallback-muted-boolean--void-promiseboolean)
+      - [`getDuration(callback?: (duration: number) => void): Promise<number>`](#getdurationcallback-duration-number--void-promisenumber)
+      - [`getCurrentTime(callback?: (currentTime: number) => void): Promise<number>`](#getcurrenttimecallback-currenttime-number--void-promisenumber)
+      - [`getVolume(callback?: (volume: number) => void): Promise<number>`](#getvolumecallback-volume-number--void-promisenumber)
+      - [`getLoop(callback?: (loop: boolean) => void): Promise<boolean>`](#getloopcallback-loop-boolean--void-promiseboolean)
+      - [`getPlaybackRate(callback?: (rate: number) => void): Promise<number>`](#getplaybackratecallback-rate-number--void-promisenumber)
+      - [`destroy()`](#destroy)
+      - [`addEventListener(event: string, callback: () => void)`](#addeventlistenerevent-string-callback---void)
+  - [Full example](#full-example)
+  - [Control an existing embedded player using the SDK](#control-an-existing-embedded-player-using-the-sdk)
+  
+
+
+# Project description
 
 SDK to control and interact with the api.video HTML5 Player
 
-# SDK usage
 
-## Installation method #1: requirejs
+# Getting started
+
+## Installation
+
+### Method #1: requirejs
 
 If you use requirejs you can add the SDK as a dependency to your project with 
 
@@ -33,7 +74,7 @@ var sdk = new PlayerSdk("#target", {
 }); 
 ```
 
-## Installation method #2: typescript
+### Method #2: typescript
 
 If you use Typescript you can add the SDK as a dependency to your project with 
 
@@ -53,7 +94,7 @@ const sdk = new PlayerSdk("#target", {
 ```
 
 
-## Simple include in a javascript project
+### Method #2: simple include in a javascript project
 
 Include the SDK in your HTML file like so:
 
@@ -74,7 +115,9 @@ Then, once the `window.onload` event has been triggered, create your player usin
 </script>
 ```
 
-## SDK instanciation
+# Documentation
+
+## Instanciation
 
 The PlayerSdk constructor takes 2 parameters:
 - `targetSelector: string` a CSS selector targeting the DOM element in which you want to create the player (eg. "#target")
@@ -97,7 +140,7 @@ The PlayerSdk constructor takes 2 parameters:
 
 The sdk instance can be used to control the video playback, and to listen to player events.
 
-## SDK methods
+## Methods
 
 The sdk instance has the following methods:
 
