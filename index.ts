@@ -316,6 +316,7 @@ export class PlayerSdk {
         ifr.style.height = "100%";
         ifr.style.width = "100%";
         ifr.allowFullscreen = true;
+        ifr.allow = "autoplay";
         target.appendChild(ifr);
         return ifr;
     }

@@ -1,6 +1,12 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.10] - 2021-12-10
+- Add `allow="autoplay"` in iframe tag
+
+## [1.2.9] - 2021-10-07
+- Add setTheme method
+
 ## [1.2.8] - 2021-05-28
 - Add showSubtitles() / hideSubtitles() methods
   
