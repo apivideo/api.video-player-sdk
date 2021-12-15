@@ -37,6 +37,11 @@ type SdkOptions = {
     showSubtitles?: boolean;
 }
 
+type ControlName = "play" | "seekBack" | "seekForward" | "playbackRate"
+    | "volume" | "fullscreen" | "subtitles" | "chapters"
+    | "pictureInPicture" | "progressBar" | "chromecast" | "download";
+
+
 export class PlayerSdk {
     private static DEFAULT_IFRAME_URL = "https://embed.api.video/${type}/${id}";
 
@@ -101,11 +106,11 @@ export class PlayerSdk {
     play() {
         this.postMessage({ message: 'play' });
     }
-    hideControls() {
-        this.postMessage({ message: 'hideControls' });
+    hideControls(controls?: ControlName[]) {
+        this.postMessage({ message: 'hideControls', controls });
     }
-    showControls() {
-        this.postMessage({ message: 'showControls' });
+    showControls(controls?: ControlName[]) {
+        this.postMessage({ message: 'showControls', controls });
     }
     hideSubtitles() {
         this.postMessage({ message: 'hideSubtitles' });

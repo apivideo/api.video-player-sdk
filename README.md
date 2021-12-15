@@ -22,8 +22,8 @@
       - [`pause()`](#pause)
       - [`mute()`](#mute)
       - [`unmute()`](#unmute)
-      - [`hideControls()`](#hidecontrols)
-      - [`showControls()`](#showcontrols)
+      - [`hideControls(controls?: ControlName[])`](#hidecontrolscontrols-controlname)
+      - [`showControls(controls?: ControlName[])`](#showcontrolscontrols-controlname)
       - [`hideSubtitles()`](#hidesubtitles)
       - [`showSubtitles()`](#showsubtitles)
       - [`setLoop(loop: boolean)`](#setlooploop-boolean)
@@ -163,10 +163,58 @@ The sdk instance has the following methods:
 > Mute the video.
 #### `unmute()` 
 > Unmute the video.
-#### `hideControls()` 
+#### `hideControls(controls?: ControlName[])` 
 > Hide the player controls.
-#### `showControls()` 
+> 
+> `controls` parameter type definition:
+> ```typescript 
+> type ControlName = "play" | "seekBackward" | "seekForward" | "playbackRate"
+>    | "volume" | "fullscreen" | "subtitles" | "chapters"
+>    | "pictureInPicture" | "progressBar" | "chromecast" | "download";
+> ```
+>
+> If no value is provided for the "controls" parameter, all controls will be hidden.
+> 
+> Example:
+> ```javascript
+>     player.hideControls();
+> ``` 
+>
+> If a list of control names if provided, the associated controls will be hidden.
+> 
+> Example:
+> ```javascript
+>     player.showControls();                          // display all controls ...
+>     player.hideControls(["download", "subtitles"]); // ... except "download" and "subtitles"
+> ``` 
+>
+#### `showControls(controls?: ControlName[])` 
 > Show the player controls.
+> 
+> `controls` parameter type definition:
+> ```typescript 
+> type ControlName = "play" | "seekBackward" | "seekForward" | "playbackRate"
+>    | "volume" | "fullscreen" | "subtitles" | "chapters"
+>    | "pictureInPicture" | "progressBar" | "chromecast" | "download";
+> ```
+>
+> If no value is provided for the "controls" parameter, all controls will be displayed.
+> 
+> Example:
+> ```javascript
+>     player.showControls();
+> ``` 
+>
+> If a list of control names if provided, the associated controls will be displayed.
+> 
+> Example:
+> ```javascript
+>     player.hideControls();                          // hide all controls ...
+>     player.showControls(["download", "subtitles"]); // ... except "download" and "subtitles" ...
+>     // ...
+>     player.showControls(["progressBar"]);           // ... and the progress bar
+> ``` 
+>
 #### `hideSubtitles()` 
 > Hide the player subtitles.
 #### `showSubtitles()` 
