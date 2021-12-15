@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.11] - 2021-12-15
+- Add `controls` parameter in `hideControls()` and `showControls()`
+
 ## [1.2.10] - 2021-12-10
 - Add `allow="autoplay"` in iframe tag
 

@@ -25,6 +25,7 @@ declare type SdkOptions = {
     token?: string;
     showSubtitles?: boolean;
 };
+declare type ControlName = "play" | "seekBack" | "seekForward" | "playbackRate" | "volume" | "fullscreen" | "subtitles" | "chapters" | "pictureInPicture" | "progressBar" | "chromecast" | "download";
 export declare class PlayerSdk {
     private static DEFAULT_IFRAME_URL;
     private iframe;
@@ -40,8 +41,8 @@ export declare class PlayerSdk {
     constructor(targetSelector: string, userOptions?: SdkOptions);
     loadConfig(options: SdkOptions): void;
     play(): void;
-    hideControls(): void;
-    showControls(): void;
+    hideControls(controls?: ControlName[]): void;
+    showControls(controls?: ControlName[]): void;
     hideSubtitles(): void;
     showSubtitles(): void;
     pause(): void;
