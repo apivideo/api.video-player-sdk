@@ -57,12 +57,15 @@ export class PlayerSdk {
 
     static nextSdkPlayerId: number = 1;
 
-    constructor(targetSelector: string, userOptions?: SdkOptions) {
+    constructor(targetSelector: string | Element, userOptions?: SdkOptions) {
         this.sdkPlayerId = PlayerSdk.nextSdkPlayerId++;
 
         this.sdkOrigin = `${window.location.protocol}//${window.location.host}`;
 
-        const target = document.querySelector(targetSelector);
+        const target = targetSelector instanceof Element
+            ? targetSelector
+            : document.querySelector(targetSelector);
+
         if (target == null) {
             throw new Error("No match found for selector " + targetSelector);
         }

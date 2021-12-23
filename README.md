@@ -120,7 +120,7 @@ Then, once the `window.onload` event has been triggered, create your player usin
 ## Instanciation
 
 The PlayerSdk constructor takes 2 parameters:
-- `targetSelector: string` a CSS selector targeting the DOM element in which you want to create the player (eg. "#target")
+- `targetSelector: string | Element` a CSS selector targeting the DOM element in which you want to create the player (eg. "#target"), or the DOM element itself
 - `options: SdkOptions` an object containing the player options. The available options are the following:
 
 

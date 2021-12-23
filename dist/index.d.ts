@@ -38,7 +38,7 @@ export declare class PlayerSdk {
     private postMessageCallbacks;
     private iframeUrl;
     static nextSdkPlayerId: number;
-    constructor(targetSelector: string, userOptions?: SdkOptions);
+    constructor(targetSelector: string | Element, userOptions?: SdkOptions);
     loadConfig(options: SdkOptions): void;
     play(): void;
     hideControls(controls?: ControlName[]): void;

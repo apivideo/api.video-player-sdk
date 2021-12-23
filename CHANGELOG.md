@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.12] - 2021-12-23
+- Adds the possibility to directly provide a DOM Element at instantiation
+  
 ## [1.2.11] - 2021-12-15
 - Add `controls` parameter in `hideControls()` and `showControls()`
 
