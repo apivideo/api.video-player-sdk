@@ -234,7 +234,7 @@ The sdk instance has the following methods:
 >
 >Example:
 >```javascript
->    player.setCurrentTime(-15); // Go 15 seconds backward
+>    player.setCurrentTime(24); // Go the 24th second
 >``` 
 #### `setVolume(volume: number)` 
 > Change the audio volume to the given value. From 0 to 1 (0 = muted, 1 = 100%).
