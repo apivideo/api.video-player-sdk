@@ -39,7 +39,7 @@ type SdkOptions = {
 
 type ControlName = "play" | "seekBack" | "seekForward" | "playbackRate"
     | "volume" | "fullscreen" | "subtitles" | "chapters"
-    | "pictureInPicture" | "progressBar" | "chromecast" | "download";
+    | "pictureInPicture" | "progressBar" | "chromecast" | "download" | "more";
 
 
 export class PlayerSdk {

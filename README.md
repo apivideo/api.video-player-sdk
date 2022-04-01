@@ -170,7 +170,7 @@ The sdk instance has the following methods:
 > ```typescript 
 > type ControlName = "play" | "seekBackward" | "seekForward" | "playbackRate"
 >    | "volume" | "fullscreen" | "subtitles" | "chapters"
->    | "pictureInPicture" | "progressBar" | "chromecast" | "download";
+>    | "pictureInPicture" | "progressBar" | "chromecast" | "download" | "more";
 > ```
 >
 > If no value is provided for the "controls" parameter, all controls will be hidden.
@@ -195,7 +195,7 @@ The sdk instance has the following methods:
 > ```typescript 
 > type ControlName = "play" | "seekBackward" | "seekForward" | "playbackRate"
 >    | "volume" | "fullscreen" | "subtitles" | "chapters"
->    | "pictureInPicture" | "progressBar" | "chromecast" | "download";
+>    | "pictureInPicture" | "progressBar" | "chromecast" | "download" | "more";
 > ```
 >
 > If no value is provided for the "controls" parameter, all controls will be displayed.
