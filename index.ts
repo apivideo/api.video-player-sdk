@@ -30,6 +30,8 @@ type SdkOptions = {
         [key: string]: string;
     }
     hideControls?: boolean;
+    hidePoster?: boolean;
+    chromeless?: boolean;
     loop?: boolean;
     hideTitle?: boolean;
     iframeUrl?: string;
@@ -142,6 +144,9 @@ export class PlayerSdk {
     setLoop(loop: boolean) {
         this.postMessage({ message: 'setLoop', loop });
     }
+    setChromeless(chromeless: boolean) {
+        this.postMessage({ message: 'setChromeless', chromeless });
+    }
     setPlaybackRate(rate: number) {
         this.postMessage({ message: 'setPlaybackRate', rate });
     }
@@ -221,6 +226,14 @@ export class PlayerSdk {
 
         if (options.hideControls === true) {
             url = addParameterInIframeHash("hide-controls");
+        }
+
+        if (options.chromeless === true) {
+            url = addParameterInIframeHash("chromeless");
+        }
+
+        if (options.hidePoster === true) {
+            url = addParameterInIframeHash("hide-poster");
         }
 
         if (options.loop === true) {

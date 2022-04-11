@@ -1,6 +1,10 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.14] - 2022-04-11
+- Add `chromeless` mode
+- Add `hidePoster` option
+
 ## [1.2.13] - 2022-04-01
 - Add the possibility to show/hide the "more" button
 

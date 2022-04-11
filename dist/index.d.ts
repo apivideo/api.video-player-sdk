@@ -19,6 +19,8 @@ declare type SdkOptions = {
         [key: string]: string;
     };
     hideControls?: boolean;
+    hidePoster?: boolean;
+    chromeless?: boolean;
     loop?: boolean;
     hideTitle?: boolean;
     iframeUrl?: string;
@@ -52,6 +54,7 @@ export declare class PlayerSdk {
     setCurrentTime(time: number): void;
     setVolume(volume: number): void;
     setLoop(loop: boolean): void;
+    setChromeless(chromeless: boolean): void;
     setPlaybackRate(rate: number): void;
     setTheme(theme: PlayerTheme): void;
     getPaused(callback?: (paused: boolean) => void): Promise<boolean>;
