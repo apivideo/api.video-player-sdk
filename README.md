@@ -24,6 +24,7 @@
       - [`unmute()`](#unmute)
       - [`hideControls(controls?: ControlName[])`](#hidecontrolscontrols-controlname)
       - [`showControls(controls?: ControlName[])`](#showcontrolscontrols-controlname)
+      - [`setChromeless(chromeless: boolean)`](#setchromelesschromeless-boolean)
       - [`hideSubtitles()`](#hidesubtitles)
       - [`showSubtitles()`](#showsubtitles)
       - [`setLoop(loop: boolean)`](#setlooploop-boolean)
@@ -126,14 +127,16 @@ The PlayerSdk constructor takes 2 parameters:
 
 |   Option name | Mandatory             | Type    | Description                                                                                                  |
 | ------------: | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
-|            id | **yes**               | string  | the id of the video (videoId or liveStreamId)                                                                                         |
+|            id | **yes**               | string  | the id of the video (videoId or liveStreamId)                                                                |
 |         token | yes for private video | string  | the [private video](https://api.video/blog/tutorials/tutorial-private-videos) url token                      |
 |          live | no (default: false)   | boolean | indicate that the video is a live one                                                                        |
 |      autoplay | no (default: false)   | boolean | start playing the video as soon as it is loaded                                                              |
 |         muted | no (default: false)   | boolean | the video is muted                                                                                           |
 |      metadata | no (default: empty)   | object  | object containing [metadata](https://api.video/blog/tutorials/dynamic-metadata) (see **Full example** below) |
-|  hideControls | no (default: false)   | boolean | the controls are hidden                                                                                      |
+|  hideControls | no (default: false)   | boolean | the controls are hidden (except unmute button if the video starts muted)                                     |
+|    chromeless | no (default: false)   | boolean | chromeless mode: all controls are hidden                                                                     |
 |     hideTitle | no (default: false)   | boolean | the video title is hidden                                                                                    |
+|    hidePoster | no (default: false)   | boolean | the poster image isn't displayed                                                                             |
 | showSubtitles | no (default: false)   | boolean | the video subtitles are shown by default                                                                     |
 |          loop | no (default: false)   | boolean | once the video is finished it automatically starts again                                                     |
 
@@ -175,6 +178,8 @@ The sdk instance has the following methods:
 >
 > If no value is provided for the "controls" parameter, all controls will be hidden.
 > 
+> **Note**: the only control that can still be visible is the unmute button if the video as started muted. To hide all controls, including this one, use the setChromeless() method
+> 
 > Example:
 > ```javascript
 >     player.hideControls();
@@ -215,6 +220,8 @@ The sdk instance has the following methods:
 >     player.showControls(["progressBar"]);           // ... and the progress bar
 > ``` 
 >
+#### `setChromeless(chromeless: boolean)`
+> Define if the player should be in chromeless mode (all controls hidden).
 #### `hideSubtitles()` 
 > Hide the player subtitles.
 #### `showSubtitles()` 
