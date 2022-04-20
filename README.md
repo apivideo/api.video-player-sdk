@@ -27,7 +27,10 @@
       - [`setChromeless(chromeless: boolean)`](#setchromelesschromeless-boolean)
       - [`hideSubtitles()`](#hidesubtitles)
       - [`showSubtitles()`](#showsubtitles)
+      - [`hideTitles()`](#hidetitles)
+      - [`showTitles()`](#showtitles)
       - [`setLoop(loop: boolean)`](#setlooploop-boolean)
+      - [`setAutoplay(autoplay: boolean)`](#setautoplayautoplay-boolean)
       - [`seek(time: number)`](#seektime-number)
       - [`setPlaybackRate(rate: number)`](#setplaybackraterate-number)
       - [`setCurrentTime(time: number)`](#setcurrenttimetime-number)
@@ -139,6 +142,7 @@ The PlayerSdk constructor takes 2 parameters:
 |    hidePoster | no (default: false)   | boolean | the poster image isn't displayed                                                                             |
 | showSubtitles | no (default: false)   | boolean | the video subtitles are shown by default                                                                     |
 |          loop | no (default: false)   | boolean | once the video is finished it automatically starts again                                                     |
+|  playbackRate | no (default: 1)       | number  | the playback rate of the video: 1 for normal, 2 for x2, etc.                                                 |
 
 
 The sdk instance can be used to control the video playback, and to listen to player events.
@@ -226,8 +230,14 @@ The sdk instance has the following methods:
 > Hide the player subtitles.
 #### `showSubtitles()` 
 > Show the player subtitles.
+#### `hideTitles()` 
+> Hide the video title at the top of the video.
+#### `showTitles()` 
+> Show the video title at the top of the video.
 #### `setLoop(loop: boolean)`
 > Define if the video should be played in loop.
+#### `setAutoplay(autoplay: boolean)`
+> Define if the video should start playing as soon as it is loaded                                                              |
 #### `seek(time: number)` 
 > Add/substract the given number of seconds to/from the playback time. 
 #### `setPlaybackRate(rate: number)` 

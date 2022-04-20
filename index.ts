@@ -37,9 +37,33 @@ type SdkOptions = {
     iframeUrl?: string;
     token?: string;
     showSubtitles?: boolean;
+    playbackRate?: number;
 }
 
-type ControlName = "play" | "seekBack" | "seekForward" | "playbackRate"
+type PlayerSdkEvent = {
+    controlsdisabled: () => void;
+    controlsenabled: () => void;
+    ended: () => void;
+    error: () => void;
+    firstplay: () => void;
+    fullscreenchange: () => void;
+    mouseenter: () => void;
+    mouseleave: () => void;
+    pause: () => void;
+    play: () => void;
+    playerresize: () => void;
+    qualitychange: (value: { resolution: { height: number, width: number }}) => void;
+    ratechange: () => void;
+    ready: () => void;
+    resize: () => void;
+    seeking: () => void;
+    timeupdate: (value: { currentTime: number}) => void;
+    useractive: () => void;
+    userinactive: () => void;
+    volumechange: (value: { volume: number}) => void;
+}
+
+export type ControlName = "play" | "seekBackward" | "seekForward" | "playbackRate"
     | "volume" | "fullscreen" | "subtitles" | "chapters"
     | "pictureInPicture" | "progressBar" | "chromecast" | "download" | "more";
 
@@ -48,8 +72,10 @@ export class PlayerSdk {
     private static DEFAULT_IFRAME_URL = "https://embed.api.video/${type}/${id}";
 
     private iframe: HTMLIFrameElement | null = null;
-    private playerReady: boolean = false;
-    private onceReadyCallbacks: (() => void)[] = [];
+    private sdkInSync: boolean = false;
+    private currentVideoReady: boolean = false;
+    private onceSdkInSyncCallbacks: (() => void)[] = [];
+    private onceVideoReadyCallbacks: (() => void)[] = [];
     private userEventListeners: UserEventListener[] = [];
     private sdkPlayerId: number;
     private sdkOrigin: string;
@@ -85,9 +111,10 @@ export class PlayerSdk {
             this.bindExistingPlayer(this.iframe);
         }
 
-        this.onceReadyCallbacks = [];
+        this.onceSdkInSyncCallbacks = [];
         this.userEventListeners = [];
-        this.playerReady = false;
+        this.sdkInSync = false;
+        this.currentVideoReady = false;
         this.playerOrigin = new URL(this.iframeUrl).origin;
 
         window.addEventListener("message", (message) => {
@@ -99,9 +126,14 @@ export class PlayerSdk {
                 }
             }
         }, false);
+
+        if(options.playbackRate) {
+            this.setPlaybackRate(options.playbackRate);
+        }
     }
 
     loadConfig(options: SdkOptions) {
+        this.currentVideoReady = false;
         this.postMessage({
             message: 'loadConfig',
             url: this.buildPlayerUrl(options)
@@ -123,6 +155,12 @@ export class PlayerSdk {
     showSubtitles() {
         this.postMessage({ message: 'showSubtitles' });
     }
+    hideTitle() {
+        this.postMessage({ message: 'hideTitle' });
+    }
+    showTitle() {
+        this.postMessage({ message: 'showTitle' });
+    }
     pause() {
         this.postMessage({ message: 'pause' });
     }
@@ -141,6 +179,9 @@ export class PlayerSdk {
     setVolume(volume: number) {
         this.postMessage({ message: 'setVolume', volume });
     }
+    setAutoplay(autoplay: boolean) {
+        this.postMessage({ message: 'setAutoplay', autoplay });
+    }
     setLoop(loop: boolean) {
         this.postMessage({ message: 'setLoop', loop });
     }
@@ -148,7 +189,7 @@ export class PlayerSdk {
         this.postMessage({ message: 'setChromeless', chromeless });
     }
     setPlaybackRate(rate: number) {
-        this.postMessage({ message: 'setPlaybackRate', rate });
+        this.postMessage({ message: 'setPlaybackRate', rate }, undefined, true);
     }
     setTheme(theme: PlayerTheme) {
         this.postMessage({ message: 'setTheme', theme });
@@ -160,7 +201,7 @@ export class PlayerSdk {
         return this.postMessage({ message: 'getMuted' }, callback);
     }
     getDuration(callback?: (duration: number) => void): Promise<number> {
-        return this.postMessage({ message: 'getDuration' }, callback);
+        return this.postMessage({ message: 'getDuration' }, callback, true);
     }
     getCurrentTime(callback?: (currentTime: number) => void): Promise<number> {
         return this.postMessage({ message: 'getCurrentTime' }, callback);
@@ -174,8 +215,11 @@ export class PlayerSdk {
     getLoop(callback?: (loop: boolean) => void): Promise<boolean> {
         return this.postMessage({ message: 'getLoop' }, callback);
     }
+    getVideoSize(callback?: (size: {width: number, height: number}) => void): Promise<{width: number, height: number}> {
+        return this.postMessage({ message: 'getVideoSize' }, callback, true);
+    }
 
-    addEventListener(event: string, callback: () => void) {
+    addEventListener<K extends keyof PlayerSdkEvent>(event: K, callback: PlayerSdkEvent[K]) {
         this.userEventListeners.push({ event, callback });
     }
 
@@ -252,9 +296,15 @@ export class PlayerSdk {
     }
 
     private urlParametersFromOptions(options: SdkOptions) {
+        const allowedKeys = ["id", "live", "autoplay", "muted", "metadata", "hideControls", "hidePoster",
+            "chromeless", "loop", "hideTitle", "iframeUrl", "token", "showSubtitles", "ts"];
+
         const optionsAsAny = options as any;
         optionsAsAny.ts = new Date().getTime();
         return Object.keys(options).map((key: string) => {
+            if(allowedKeys.indexOf(key) === -1) {
+                return;
+            }
             if (key === "metadata" && typeof optionsAsAny[key] === "object") {
                 const metadata = optionsAsAny[key];
                 return Object.keys(metadata).map((metadataName: string) => {
@@ -275,22 +325,34 @@ export class PlayerSdk {
             .forEach(uel => uel.callback(userData));
 
         switch (data.type) {
+            case 'ready':
+                this.onVideoReady();
+                break;
             case 'sdkSync':
-                this.onReady();
+                this.onSdkInSync();
                 break;
         }
     }
 
-    private onReady() {
-        if (!this.playerReady) {
-            this.playerReady = true;
-            this.onceReadyCallbacks.forEach(cb => {
+    private onSdkInSync() {
+        if (!this.sdkInSync) {
+            this.sdkInSync = true;
+            this.onceSdkInSyncCallbacks.forEach(cb => {
                 cb();
             });
         }
     }
 
-    private postMessage<T>(message: any, callback?: (arg: T) => void): Promise<T> {
+    private onVideoReady() {
+        if(!this.currentVideoReady) {
+            this.currentVideoReady = true;
+            this.onceVideoReadyCallbacks.forEach(cb => {
+                cb();
+            });
+        }
+    }
+
+    private postMessage<T>(message: any, callback?: (arg: T) => void, requireVideoReady: boolean = false): Promise<T> {
 
         return new Promise((resolve, reject): void => {
 
@@ -313,12 +375,17 @@ export class PlayerSdk {
             };
             messageWithPlayerId.callbackId = callbackId;
 
-
-            if (this.playerReady && !!this.playerOrigin) {
-                this.iframe.contentWindow.postMessage(messageWithPlayerId, this.playerOrigin);
-            } else {
-                this.onceReadyCallbacks.push(() => this.playerOrigin && this.iframe?.contentWindow?.postMessage(messageWithPlayerId, this.playerOrigin));
+            if(!this.currentVideoReady && requireVideoReady) {
+                this.onceVideoReadyCallbacks.push(() => this.playerOrigin && this.iframe?.contentWindow?.postMessage(messageWithPlayerId, this.playerOrigin));
+                return;
             }
+
+            if (this.sdkInSync && !!this.playerOrigin) {
+                this.iframe.contentWindow.postMessage(messageWithPlayerId, this.playerOrigin);
+                return;
+            }
+
+            this.onceSdkInSyncCallbacks.push(() => this.playerOrigin && this.iframe?.contentWindow?.postMessage(messageWithPlayerId, this.playerOrigin));
         });
     }
 
