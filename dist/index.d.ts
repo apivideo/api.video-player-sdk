@@ -26,13 +26,47 @@ declare type SdkOptions = {
     iframeUrl?: string;
     token?: string;
     showSubtitles?: boolean;
+    playbackRate?: number;
 };
-declare type ControlName = "play" | "seekBack" | "seekForward" | "playbackRate" | "volume" | "fullscreen" | "subtitles" | "chapters" | "pictureInPicture" | "progressBar" | "chromecast" | "download" | "more";
+declare type PlayerSdkEvent = {
+    controlsdisabled: () => void;
+    controlsenabled: () => void;
+    ended: () => void;
+    error: () => void;
+    firstplay: () => void;
+    fullscreenchange: () => void;
+    mouseenter: () => void;
+    mouseleave: () => void;
+    pause: () => void;
+    play: () => void;
+    playerresize: () => void;
+    qualitychange: (value: {
+        resolution: {
+            height: number;
+            width: number;
+        };
+    }) => void;
+    ratechange: () => void;
+    ready: () => void;
+    resize: () => void;
+    seeking: () => void;
+    timeupdate: (value: {
+        currentTime: number;
+    }) => void;
+    useractive: () => void;
+    userinactive: () => void;
+    volumechange: (value: {
+        volume: number;
+    }) => void;
+};
+export declare type ControlName = "play" | "seekBackward" | "seekForward" | "playbackRate" | "volume" | "fullscreen" | "subtitles" | "chapters" | "pictureInPicture" | "progressBar" | "chromecast" | "download" | "more";
 export declare class PlayerSdk {
     private static DEFAULT_IFRAME_URL;
     private iframe;
-    private playerReady;
-    private onceReadyCallbacks;
+    private sdkInSync;
+    private currentVideoReady;
+    private onceSdkInSyncCallbacks;
+    private onceVideoReadyCallbacks;
     private userEventListeners;
     private sdkPlayerId;
     private sdkOrigin;
@@ -47,12 +81,15 @@ export declare class PlayerSdk {
     showControls(controls?: ControlName[]): void;
     hideSubtitles(): void;
     showSubtitles(): void;
+    hideTitle(): void;
+    showTitle(): void;
     pause(): void;
     mute(): void;
     unmute(): void;
     seek(time: number): void;
     setCurrentTime(time: number): void;
     setVolume(volume: number): void;
+    setAutoplay(autoplay: boolean): void;
     setLoop(loop: boolean): void;
     setChromeless(chromeless: boolean): void;
     setPlaybackRate(rate: number): void;
@@ -64,7 +101,14 @@ export declare class PlayerSdk {
     getPlaybackRate(callback?: (rate: number) => void): Promise<number>;
     getVolume(callback?: (volume: number) => void): Promise<number>;
     getLoop(callback?: (loop: boolean) => void): Promise<boolean>;
-    addEventListener(event: string, callback: () => void): void;
+    getVideoSize(callback?: (size: {
+        width: number;
+        height: number;
+    }) => void): Promise<{
+        width: number;
+        height: number;
+    }>;
+    addEventListener<K extends keyof PlayerSdkEvent>(event: K, callback: PlayerSdkEvent[K]): void;
     destroy(): void;
     private createNewPlayer;
     private buildPlayerUrl;
@@ -72,7 +116,8 @@ export declare class PlayerSdk {
     private addParametersInIframeHash;
     private urlParametersFromOptions;
     private onEvent;
-    private onReady;
+    private onSdkInSync;
+    private onVideoReady;
     private postMessage;
     private makeId;
     private createIframe;

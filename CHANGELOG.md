@@ -1,6 +1,13 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.15] - 2022-04-20
+- Add event callback types
+- Delay some methods execution after ready event is received
+- Add playbackRate option
+- Add hideTitle() and showTitle() methods
+- Add setAutoplay() method
+
 ## [1.2.14] - 2022-04-11
 - Add `chromeless` mode
 - Add `hidePoster` option
