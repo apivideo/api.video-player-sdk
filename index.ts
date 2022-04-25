@@ -161,6 +161,12 @@ export class PlayerSdk {
     showTitle() {
         this.postMessage({ message: 'showTitle' });
     }
+    hidePoster() {
+        this.postMessage({ message: 'hidePoster' });
+    }
+    showPoster() {
+        this.postMessage({ message: 'showPoster' });
+    }
     pause() {
         this.postMessage({ message: 'pause' });
     }

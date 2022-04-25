@@ -237,7 +237,7 @@ The sdk instance has the following methods:
 #### `setLoop(loop: boolean)`
 > Define if the video should be played in loop.
 #### `setAutoplay(autoplay: boolean)`
-> Define if the video should start playing as soon as it is loaded                                                              |
+> Define if the video should start playing as soon as it is loaded                                                              
 #### `seek(time: number)` 
 > Add/substract the given number of seconds to/from the playback time. 
 #### `setPlaybackRate(rate: number)` 

@@ -83,6 +83,8 @@ export declare class PlayerSdk {
     showSubtitles(): void;
     hideTitle(): void;
     showTitle(): void;
+    hidePoster(): void;
+    showPoster(): void;
     pause(): void;
     mute(): void;
     unmute(): void;
