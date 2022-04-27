@@ -197,6 +197,18 @@ export class PlayerSdk {
     setPlaybackRate(rate: number) {
         this.postMessage({ message: 'setPlaybackRate', rate }, undefined, true);
     }
+    exitFullscreen() {
+        this.postMessage({ message: 'exitFullscreen' }, undefined, true);
+    }
+    requestFullscreen() {
+        this.postMessage({ message: 'requestFullscreen' }, undefined, true);
+    }
+    exitPictureInPicture() {
+        this.postMessage({ message: 'exitPictureInPicture' }, undefined, true);
+    }
+    requestPictureInPicture() {
+        this.postMessage({ message: 'requestPictureInPicture' }, undefined, true);
+    }
     setTheme(theme: PlayerTheme) {
         this.postMessage({ message: 'setTheme', theme });
     }

@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.17] - 2022-04-27
+- add exitFullscreen(), requestFullscreen(), exitPictureInPicture() and requestPictureInPicture()
+
 ## [1.2.16] - 2022-04-25
 - add showPoster() and hidePoster()
 
