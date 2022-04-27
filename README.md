@@ -36,6 +36,10 @@
       - [`setCurrentTime(time: number)`](#setcurrenttimetime-number)
       - [`setVolume(volume: number)`](#setvolumevolume-number)
       - [`setTheme(theme: PlayerTheme)`](#setthemetheme-playertheme)
+      - [`requestFullscreen()`](#requestfullscreen)
+      - [`exitFullscreen()`](#exitfullscreen)
+      - [`requestPictureInPicture()`](#requestpictureinpicture)
+      - [`exitPictureInPicture()`](#exitpictureinpicture)
       - [`getPaused(callback?: (paused: boolean) => void): Promise<boolean>`](#getpausedcallback-paused-boolean--void-promiseboolean)
       - [`getMuted(callback?: (muted: boolean) => void): Promise<boolean>`](#getmutedcallback-muted-boolean--void-promiseboolean)
       - [`getDuration(callback?: (duration: number) => void): Promise<number>`](#getdurationcallback-duration-number--void-promisenumber)
@@ -288,6 +292,14 @@ The sdk instance has the following methods:
 >     }); 
 > ``` 
 
+#### `requestFullscreen()`
+> Request fullscreen mode (this may not work in some cases depending on browser restrictions)
+#### `exitFullscreen()`
+> Leave fullscreen mode   
+#### `requestPictureInPicture()`
+> Request picture in picture mode (this may not work in some cases depending on browser restrictions)
+#### `exitPictureInPicture()`
+> Leave picture in picture mode    
 #### `getPaused(callback?: (paused: boolean) => void): Promise<boolean>`
 > Check weither the video is paused.
 #### `getMuted(callback?: (muted: boolean) => void): Promise<boolean>`
