@@ -95,6 +95,10 @@ export declare class PlayerSdk {
     setLoop(loop: boolean): void;
     setChromeless(chromeless: boolean): void;
     setPlaybackRate(rate: number): void;
+    exitFullscreen(): void;
+    requestFullscreen(): void;
+    exitPictureInPicture(): void;
+    requestPictureInPicture(): void;
     setTheme(theme: PlayerTheme): void;
     getPaused(callback?: (paused: boolean) => void): Promise<boolean>;
     getMuted(callback?: (muted: boolean) => void): Promise<boolean>;
