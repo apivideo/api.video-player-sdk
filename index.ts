@@ -144,10 +144,10 @@ export class PlayerSdk {
         this.postMessage({ message: 'play' });
     }
     hideControls(controls?: ControlName[]) {
-        this.postMessage({ message: 'hideControls', controls });
+        this.postMessage({ message: 'hideControls', controls }, undefined, true);
     }
     showControls(controls?: ControlName[]) {
-        this.postMessage({ message: 'showControls', controls });
+        this.postMessage({ message: 'showControls', controls }, undefined, true);
     }
     hideSubtitles() {
         this.postMessage({ message: 'hideSubtitles' });
