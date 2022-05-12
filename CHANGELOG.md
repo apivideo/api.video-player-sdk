@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.18] - 2022-05-12
+- Fix showControls & hideControls methods when called before the player is ready.
+  
 ## [1.2.17] - 2022-04-27
 - add exitFullscreen(), requestFullscreen(), exitPictureInPicture() and requestPictureInPicture()
 
