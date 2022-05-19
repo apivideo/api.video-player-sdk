@@ -82,6 +82,7 @@ export class PlayerSdk {
     private playerOrigin: string | null = null;
     private postMessageCallbacks: { [callbackId: string]: (arg: any) => void } = {};
     private iframeUrl: string;
+    private options: SdkOptions;
 
     static nextSdkPlayerId: number = 1;
 
@@ -116,6 +117,7 @@ export class PlayerSdk {
         this.sdkInSync = false;
         this.currentVideoReady = false;
         this.playerOrigin = new URL(this.iframeUrl).origin;
+        this.options = options;
 
         window.addEventListener("message", (message) => {
             if (message.origin === this.playerOrigin && parseInt(message.data?.sdkPlayerId, 10) === this.sdkPlayerId) {
@@ -134,9 +136,13 @@ export class PlayerSdk {
 
     loadConfig(options: SdkOptions) {
         this.currentVideoReady = false;
+        this.options = {
+            ...this.options,
+            ...options,
+        };
         this.postMessage({
             message: 'loadConfig',
-            url: this.buildPlayerUrl(options)
+            url: this.buildPlayerUrl(this.options)
         });
     }
 
@@ -144,36 +150,50 @@ export class PlayerSdk {
         this.postMessage({ message: 'play' });
     }
     hideControls(controls?: ControlName[]) {
+        if(!controls) {
+            this.options.hideControls = true;
+        }
         this.postMessage({ message: 'hideControls', controls }, undefined, true);
     }
     showControls(controls?: ControlName[]) {
+        if(!controls) {
+            this.options.hideControls = false;
+        }
         this.postMessage({ message: 'showControls', controls }, undefined, true);
     }
     hideSubtitles() {
+        this.options.showSubtitles = false;
         this.postMessage({ message: 'hideSubtitles' });
     }
     showSubtitles() {
+        this.options.showSubtitles = true;
         this.postMessage({ message: 'showSubtitles' });
     }
     hideTitle() {
+        this.options.hideTitle = true;
         this.postMessage({ message: 'hideTitle' });
     }
     showTitle() {
+        this.options.hideTitle = false;
         this.postMessage({ message: 'showTitle' });
     }
     hidePoster() {
+        this.options.hidePoster = true;
         this.postMessage({ message: 'hidePoster' });
     }
     showPoster() {
+        this.options.hidePoster = false;
         this.postMessage({ message: 'showPoster' });
     }
     pause() {
         this.postMessage({ message: 'pause' });
     }
     mute() {
+        this.options.muted = true;
         this.postMessage({ message: 'mute' });
     }
     unmute() {
+        this.options.muted = false;
         this.postMessage({ message: 'unmute' });
     }
     seek(time: number) {
@@ -186,15 +206,19 @@ export class PlayerSdk {
         this.postMessage({ message: 'setVolume', volume });
     }
     setAutoplay(autoplay: boolean) {
+        this.options.autoplay = autoplay;
         this.postMessage({ message: 'setAutoplay', autoplay });
     }
     setLoop(loop: boolean) {
+        this.options.loop = loop;
         this.postMessage({ message: 'setLoop', loop });
     }
     setChromeless(chromeless: boolean) {
+        this.options.chromeless = chromeless;
         this.postMessage({ message: 'setChromeless', chromeless });
     }
     setPlaybackRate(rate: number) {
+        this.options.playbackRate = rate;
         this.postMessage({ message: 'setPlaybackRate', rate }, undefined, true);
     }
     exitFullscreen() {
