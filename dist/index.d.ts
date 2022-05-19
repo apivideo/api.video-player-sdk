@@ -73,6 +73,7 @@ export declare class PlayerSdk {
     private playerOrigin;
     private postMessageCallbacks;
     private iframeUrl;
+    private options;
     static nextSdkPlayerId: number;
     constructor(targetSelector: string | Element, userOptions?: SdkOptions);
     loadConfig(options: SdkOptions): void;

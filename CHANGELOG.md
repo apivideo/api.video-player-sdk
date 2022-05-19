@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.19] - 2022-05-19
+- When loadConfig() is called, apply the last config settings
+  
 ## [1.2.18] - 2022-05-12
 - Fix showControls & hideControls methods when called before the player is ready.
   
