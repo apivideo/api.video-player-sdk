@@ -149,6 +149,15 @@ export class PlayerSdk {
     play() {
         this.postMessage({ message: 'play' });
     }
+
+    setVideoStyleTransform(value: string) {
+        this.postMessage({ message: 'setStyleProperty', query: "video", property: "transform", value }, undefined, true);
+    }
+
+    setVideoStyleObjectFit(value: "contain" | "cover" | "fill" | "none" | "scale-down") {
+        this.postMessage({ message: 'setStyleProperty', query: "video", property: "object-fit", value }, undefined, true);
+    }
+
     hideControls(controls?: ControlName[]) {
         if(!controls) {
             this.options.hideControls = true;

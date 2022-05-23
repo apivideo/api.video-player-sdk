@@ -35,6 +35,8 @@
       - [`setPlaybackRate(rate: number)`](#setplaybackraterate-number)
       - [`setCurrentTime(time: number)`](#setcurrenttimetime-number)
       - [`setVolume(volume: number)`](#setvolumevolume-number)
+      - [`setVideoStyleObjectFit(value: "contain" | "cover" | "fill" | "none" | "scale-down")`](#setvideostyleobjectfitvalue-contain--cover--fill--none--scale-down)
+      - [`setVideoStyleTransform(value: string)`](#setvideostyletransformvalue-string)
       - [`setTheme(theme: PlayerTheme)`](#setthemetheme-playertheme)
       - [`requestFullscreen()`](#requestfullscreen)
       - [`exitFullscreen()`](#exitfullscreen)
@@ -264,6 +266,22 @@ The sdk instance has the following methods:
 > ```javascript
 >     player.setVolume(0.75); // Set the volume to 75% 
 > ``` 
+#### `setVideoStyleObjectFit(value: "contain" | "cover" | "fill" | "none" | "scale-down")` 
+> Change the [object-fit](https://developer.mozilla.org/fr/docs/Web/CSS/object-fit) CSS value of the video tag.
+
+> Example:
+> ```javascript
+>     player.setVideoStyleObjectFit("cover"); // Set the object-fit to cover
+> ``` 
+
+#### `setVideoStyleTransform(value: string)` 
+> Change the [transform](https://developer.mozilla.org/fr/docs/Web/CSS/transform) CSS value of the video tag.
+
+> Example:
+> ```javascript
+>     player.setVideoStyleTransform("rotateY(180deg)"); // Apply a 180deg rotation around the Y axis (mirroring)
+> ``` 
+
 #### `setTheme(theme: PlayerTheme)` 
 > Change the appearance of the player.
 > 
