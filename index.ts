@@ -151,11 +151,13 @@ export class PlayerSdk {
     }
 
     setVideoStyleTransform(value: string) {
-        this.postMessage({ message: 'setStyleProperty', query: "video", property: "transform", value }, undefined, true);
+        this.postMessage({ message: 'setStyleProperty', query: "video", property: "transform", value }, undefined, false);
+        this.postMessage({ message: 'setStyleProperty', query: ".vjs-poster", property: "transform", value }, undefined, false);
     }
 
     setVideoStyleObjectFit(value: "contain" | "cover" | "fill" | "none" | "scale-down") {
-        this.postMessage({ message: 'setStyleProperty', query: "video", property: "object-fit", value }, undefined, true);
+        this.postMessage({ message: 'setStyleProperty', query: "video", property: "object-fit", value }, undefined, false);
+        this.postMessage({ message: 'setStyleProperty', query: ".vjs-poster", property: "background-size", value }, undefined, false);
     }
 
     hideControls(controls?: ControlName[]) {
