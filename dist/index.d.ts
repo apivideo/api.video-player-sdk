@@ -78,6 +78,8 @@ export declare class PlayerSdk {
     constructor(targetSelector: string | Element, userOptions?: SdkOptions);
     loadConfig(options: SdkOptions): void;
     play(): void;
+    setVideoStyleTransform(value: string): void;
+    setVideoStyleObjectFit(value: "contain" | "cover" | "fill" | "none" | "scale-down"): void;
     hideControls(controls?: ControlName[]): void;
     showControls(controls?: ControlName[]): void;
     hideSubtitles(): void;

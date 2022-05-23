@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.20] - 2022-05-23
+- Add `setVideoStyleObjectFit()` and `setVideoStyleTransform()` methods.
+  
 ## [1.2.19] - 2022-05-19
 - When loadConfig() is called, apply the last config settings
   
