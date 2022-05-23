@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.21] - 2022-05-23
+- Apply `setVideoStyleObjectFit()` and `setVideoStyleTransform()` to poster.
+
 ## [1.2.20] - 2022-05-23
 - Add `setVideoStyleObjectFit()` and `setVideoStyleTransform()` methods.
   
