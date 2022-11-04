@@ -105,6 +105,7 @@ export declare class PlayerSdk {
     setTheme(theme: PlayerTheme): void;
     getPaused(callback?: (paused: boolean) => void): Promise<boolean>;
     getMuted(callback?: (muted: boolean) => void): Promise<boolean>;
+    getPlaying(callback?: (muted: boolean) => void): Promise<boolean>;
     getDuration(callback?: (duration: number) => void): Promise<number>;
     getCurrentTime(callback?: (currentTime: number) => void): Promise<number>;
     getPlaybackRate(callback?: (rate: number) => void): Promise<number>;

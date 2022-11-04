@@ -253,6 +253,9 @@ export class PlayerSdk {
     getMuted(callback?: (muted: boolean) => void): Promise<boolean> {
         return this.postMessage({ message: 'getMuted' }, callback);
     }
+    getPlaying(callback?: (muted: boolean) => void): Promise<boolean> {
+        return this.postMessage({ message: 'getPlaying' }, callback);
+    }
     getDuration(callback?: (duration: number) => void): Promise<number> {
         return this.postMessage({ message: 'getDuration' }, callback, true);
     }
