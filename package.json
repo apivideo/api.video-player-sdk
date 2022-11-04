@@ -20,7 +20,8 @@
     "tslint": "tslint --project .",
     "dev": "webpack-dev-server --host 0.0.0.0 --open --mode development",
     "build": "npm run tslint && webpack --mode production",
-    "test": "npm run tslint && mocha -r ts-node/register -r jsdom-global/register 'test/**/*.ts'"
+    "test": "npm run tslint && mocha -r ts-node/register -r jsdom-global/register 'test/**/*.ts'",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@types/chai": "^4.2.14",

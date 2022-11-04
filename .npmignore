@@ -5,3 +5,4 @@ node_modules
 test
 dist/test
 samples
+.github
