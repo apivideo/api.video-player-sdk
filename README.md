@@ -43,6 +43,7 @@
       - [`requestPictureInPicture()`](#requestpictureinpicture)
       - [`exitPictureInPicture()`](#exitpictureinpicture)
       - [`getPaused(callback?: (paused: boolean) => void): Promise<boolean>`](#getpausedcallback-paused-boolean--void-promiseboolean)
+      - [`getPlaying(callback?: (playing: boolean) => void): Promise<boolean>`](#getplayingcallback-playing-boolean--void-promiseboolean)
       - [`getMuted(callback?: (muted: boolean) => void): Promise<boolean>`](#getmutedcallback-muted-boolean--void-promiseboolean)
       - [`getDuration(callback?: (duration: number) => void): Promise<number>`](#getdurationcallback-duration-number--void-promisenumber)
       - [`getCurrentTime(callback?: (currentTime: number) => void): Promise<number>`](#getcurrenttimecallback-currenttime-number--void-promisenumber)
@@ -320,6 +321,8 @@ The sdk instance has the following methods:
 > Leave picture in picture mode    
 #### `getPaused(callback?: (paused: boolean) => void): Promise<boolean>`
 > Check weither the video is paused.
+#### `getPlaying(callback?: (playing: boolean) => void): Promise<boolean>`
+> Check weither the video is playing.
 #### `getMuted(callback?: (muted: boolean) => void): Promise<boolean>`
 > Check weither the video is muted.
 #### `getDuration(callback?: (duration: number) => void): Promise<number>`

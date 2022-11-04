@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.22] - 2022-11-04
+- Add `getPlaying()` method
+
 ## [1.2.21] - 2022-05-23
 - Apply `setVideoStyleObjectFit()` and `setVideoStyleTransform()` to poster.
 
