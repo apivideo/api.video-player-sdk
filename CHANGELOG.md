@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.23] - 2023-02-15
+- Add `privateSession` option
+
 ## [1.2.22] - 2022-11-04
 - Add `getPlaying()` method
 
