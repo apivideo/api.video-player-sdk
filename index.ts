@@ -36,6 +36,7 @@ type SdkOptions = {
     hideTitle?: boolean;
     iframeUrl?: string;
     token?: string;
+    privateSession?: string;
     showSubtitles?: boolean;
     playbackRate?: number;
 }
@@ -353,10 +354,15 @@ export class PlayerSdk {
 
     private urlParametersFromOptions(options: SdkOptions) {
         const allowedKeys = ["id", "live", "autoplay", "muted", "metadata", "hideControls", "hidePoster",
-            "chromeless", "loop", "hideTitle", "iframeUrl", "token", "showSubtitles", "ts"];
+            "chromeless", "loop", "hideTitle", "iframeUrl", "token", "showSubtitles", "ts","avh"];
 
         const optionsAsAny = options as any;
         optionsAsAny.ts = new Date().getTime();
+
+        if(options.privateSession) {
+            optionsAsAny.avh = options.privateSession;
+        }
+
         return Object.keys(options).map((key: string) => {
             if(allowedKeys.indexOf(key) === -1) {
                 return;

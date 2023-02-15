@@ -129,27 +129,28 @@ Then, once the `window.onload` event has been triggered, create your player usin
 # Documentation
 
 ## Instanciation
-
+ 
 The PlayerSdk constructor takes 2 parameters:
 - `targetSelector: string | Element` a CSS selector targeting the DOM element in which you want to create the player (eg. "#target"), or the DOM element itself
 - `options: SdkOptions` an object containing the player options. The available options are the following:
 
 
-|   Option name | Mandatory             | Type    | Description                                                                                                  |
-| ------------: | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
-|            id | **yes**               | string  | the id of the video (videoId or liveStreamId)                                                                |
-|         token | yes for private video | string  | the [private video](https://api.video/blog/tutorials/tutorial-private-videos) url token                      |
-|          live | no (default: false)   | boolean | indicate that the video is a live one                                                                        |
-|      autoplay | no (default: false)   | boolean | start playing the video as soon as it is loaded                                                              |
-|         muted | no (default: false)   | boolean | the video is muted                                                                                           |
-|      metadata | no (default: empty)   | object  | object containing [metadata](https://api.video/blog/tutorials/dynamic-metadata) (see **Full example** below) |
-|  hideControls | no (default: false)   | boolean | the controls are hidden (except unmute button if the video starts muted)                                     |
-|    chromeless | no (default: false)   | boolean | chromeless mode: all controls are hidden                                                                     |
-|     hideTitle | no (default: false)   | boolean | the video title is hidden                                                                                    |
-|    hidePoster | no (default: false)   | boolean | the poster image isn't displayed                                                                             |
-| showSubtitles | no (default: false)   | boolean | the video subtitles are shown by default                                                                     |
-|          loop | no (default: false)   | boolean | once the video is finished it automatically starts again                                                     |
-|  playbackRate | no (default: 1)       | number  | the playback rate of the video: 1 for normal, 2 for x2, etc.                                                 |
+|    Option name | Mandatory             | Type    | Description                                                                                                  |
+| -------------: | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+|             id | **yes**               | string  | the id of the video (videoId or liveStreamId)                                                                |
+|          token | yes for private video | string  | the [private video](https://api.video/blog/tutorials/tutorial-private-videos) url token                      |
+| privateSession | no                    | string  | the [private video](https://api.video/blog/tutorials/tutorial-private-videos) session id if needed           |
+|           live | no (default: false)   | boolean | indicate that the video is a live one                                                                        |
+|       autoplay | no (default: false)   | boolean | start playing the video as soon as it is loaded                                                              |
+|          muted | no (default: false)   | boolean | the video is muted                                                                                           |
+|       metadata | no (default: empty)   | object  | object containing [metadata](https://api.video/blog/tutorials/dynamic-metadata) (see **Full example** below) |
+|   hideControls | no (default: false)   | boolean | the controls are hidden (except unmute button if the video starts muted)                                     |
+|     chromeless | no (default: false)   | boolean | chromeless mode: all controls are hidden                                                                     |
+|      hideTitle | no (default: false)   | boolean | the video title is hidden                                                                                    |
+|     hidePoster | no (default: false)   | boolean | the poster image isn't displayed                                                                             |
+|  showSubtitles | no (default: false)   | boolean | the video subtitles are shown by default                                                                     |
+|           loop | no (default: false)   | boolean | once the video is finished it automatically starts again                                                     |
+|   playbackRate | no (default: 1)       | number  | the playback rate of the video: 1 for normal, 2 for x2, etc.                                                 |
 
 
 The sdk instance can be used to control the video playback, and to listen to player events.
