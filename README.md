@@ -151,6 +151,7 @@ The PlayerSdk constructor takes 2 parameters:
 |  showSubtitles | no (default: false)   | boolean | the video subtitles are shown by default                                                                     |
 |           loop | no (default: false)   | boolean | once the video is finished it automatically starts again                                                     |
 |   playbackRate | no (default: 1)       | number  | the playback rate of the video: 1 for normal, 2 for x2, etc.                                                 |
+|   sequence | no        | {start: number, end: number}  | define a sequence of the video to play. The video will start at the `start` timecode and end at the `end` timecode. The timecodes are in seconds. |
 
 
 The sdk instance can be used to control the video playback, and to listen to player events.

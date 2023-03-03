@@ -39,6 +39,10 @@ type SdkOptions = {
     privateSession?: string;
     showSubtitles?: boolean;
     playbackRate?: number;
+    sequence?: {
+        start: number;
+        end: number;
+    }
 }
 
 type PlayerSdkEvent = {
@@ -347,6 +351,10 @@ export class PlayerSdk {
 
         if (options.showSubtitles === true) {
             url = addParameterInIframeHash("show-subtitles");
+        }
+
+        if(!isNaN(parseInt(""+options.sequence?.end, 10)) && !isNaN(parseInt(""+options.sequence?.start, 10))) {
+            url = addParameterInIframeHash(`t=${options.sequence?.start},${options.sequence?.end}`);
         }
 
         return url;
