@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.24] - 2023-03-03
+- Add `sequence` option
+  
 ## [1.2.23] - 2023-02-15
 - Add `privateSession` option
 
