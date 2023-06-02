@@ -16,6 +16,7 @@
     - [Method #2: simple include in a javascript project](#method-2-simple-include-in-a-javascript-project)
 - [Documentation](#documentation)
   - [Instanciation](#instanciation)
+    - [Ads](#ads)
   - [Methods](#methods)
       - [`loadConfig(options: SdkOptions)`](#loadconfigoptions-sdkoptions)
       - [`play()`](#play)
@@ -152,9 +153,15 @@ The PlayerSdk constructor takes 2 parameters:
 |           loop | no (default: false)   | boolean | once the video is finished it automatically starts again                                                     |
 |   playbackRate | no (default: 1)       | number  | the playback rate of the video: 1 for normal, 2 for x2, etc.                                                 |
 |   sequence | no        | {start: number, end: number}  | define a sequence of the video to play. The video will start at the `start` timecode and end at the `end` timecode. The timecodes are in seconds. |
+| ads | no | {adTagUrl: string} | see below [ads](#ads) |
 
 
 The sdk instance can be used to control the video playback, and to listen to player events.
+
+### Ads
+Ads can be displayed in the player. To do so, you need to pass the `ads` option to the sdk constructor. In the `ads` object, pass the `adTagUrl` property with the url of the ad tag. The ad tag must be a VAST 2.0 or 3.0 url. For more information about VAST, check the [IAB documentation](https://www.iab.com/guidelines/vast/).
+
+Note: ads are displayed using the [Google IMA SDK](https://developers.google.com/interactive-media-ads/docs/sdks/html5/quickstart).
 
 ## Methods
 

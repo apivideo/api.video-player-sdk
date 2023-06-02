@@ -21,6 +21,10 @@ export type PlayerTheme = {
     linkActive?: string;
 }
 
+type AdsOptions = {
+    adTagUrl: string;
+}
+
 type SdkOptions = {
     id: string;
     live?: boolean;
@@ -38,6 +42,7 @@ type SdkOptions = {
     token?: string;
     privateSession?: string;
     showSubtitles?: boolean;
+    ads?: AdsOptions;
     playbackRate?: number;
     sequence?: {
         start: number;
@@ -351,6 +356,10 @@ export class PlayerSdk {
 
         if (options.showSubtitles === true) {
             url = addParameterInIframeHash("show-subtitles");
+        }
+
+        if(options.ads?.adTagUrl) {
+            url = addParameterInIframeHash(`adTagUrl:${encodeURIComponent(options.ads?.adTagUrl)}`);
         }
 
         if(!isNaN(parseInt(""+options.sequence?.end, 10)) && !isNaN(parseInt(""+options.sequence?.start, 10))) {
