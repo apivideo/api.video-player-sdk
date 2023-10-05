@@ -284,6 +284,9 @@ export class PlayerSdk {
     getVideoSize(callback?: (size: {width: number, height: number}) => void): Promise<{width: number, height: number}> {
         return this.postMessage({ message: 'getVideoSize' }, callback, true);
     }
+    isLiveStream(callback?: (isLiveStream: boolean) => void): Promise<boolean> {
+        return this.postMessage({ message: 'isLiveStream' }, callback);
+    }
 
     addEventListener<K extends keyof PlayerSdkEvent>(event: K, callback: PlayerSdkEvent[K]) {
         this.userEventListeners.push({ event, callback });
