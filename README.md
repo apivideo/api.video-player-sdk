@@ -51,6 +51,7 @@
       - [`getVolume(callback?: (volume: number) => void): Promise<number>`](#getvolumecallback-volume-number--void-promisenumber)
       - [`getLoop(callback?: (loop: boolean) => void): Promise<boolean>`](#getloopcallback-loop-boolean--void-promiseboolean)
       - [`getPlaybackRate(callback?: (rate: number) => void): Promise<number>`](#getplaybackratecallback-rate-number--void-promisenumber)
+      - [`isLiveStream(callback?: (live: boolean) => void): Promise<boolean>`](#islivestreamcallback-live-boolean--void-promiseboolean)
       - [`destroy()`](#destroy)
       - [`addEventListener(event: string, callback: () => void)`](#addeventlistenerevent-string-callback---void)
   - [Full example](#full-example)
@@ -344,6 +345,8 @@ The sdk instance has the following methods:
 > Check whether the video is in loop mode.
 #### `getPlaybackRate(callback?: (rate: number) => void): Promise<number>`
 > Retrieve the playback rate.
+#### `isLiveStream(callback?: (live: boolean) => void): Promise<boolean>`
+> Check whether the video is a live stream.
 #### `destroy()` 
 > Destroy the player instance.
 #### `addEventListener(event: string, callback: () => void)` 
