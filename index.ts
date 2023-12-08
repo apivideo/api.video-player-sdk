@@ -51,6 +51,10 @@ type SdkOptions = {
 }
 
 type PlayerSdkEvent = {
+    airplayConnected: () => void;
+    airplayDisconnected: () => void;
+    chromecastConnected: () => void;
+    chromecastDisconnected: () => void;
     controlsdisabled: () => void;
     controlsenabled: () => void;
     ended: () => void;
