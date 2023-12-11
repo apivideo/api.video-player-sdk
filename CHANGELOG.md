@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.28] - 2023-12-11
+- Add experimental methods
+
 ## [1.2.27] - 2023-12-08
 - Add chromecast & airplay events
 
