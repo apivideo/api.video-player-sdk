@@ -19,42 +19,6 @@
   - [Instantiation](#instantiation)
     - [Ads](#ads)
   - [Methods](#methods)
-      - [`loadConfig(options: SdkOptions)`](#loadconfigoptions-sdkoptions)
-      - [`play()`](#play)
-      - [`pause()`](#pause)
-      - [`mute()`](#mute)
-      - [`unmute()`](#unmute)
-      - [`hideControls(controls?: ControlName[])`](#hidecontrolscontrols-controlname)
-      - [`showControls(controls?: ControlName[])`](#showcontrolscontrols-controlname)
-      - [`setChromeless(chromeless: boolean)`](#setchromelesschromeless-boolean)
-      - [`hideSubtitles()`](#hidesubtitles)
-      - [`showSubtitles()`](#showsubtitles)
-      - [`hideTitles()`](#hidetitles)
-      - [`showTitles()`](#showtitles)
-      - [`setLoop(loop: boolean)`](#setlooploop-boolean)
-      - [`setAutoplay(autoplay: boolean)`](#setautoplayautoplay-boolean)
-      - [`seek(time: number)`](#seektime-number)
-      - [`setPlaybackRate(rate: number)`](#setplaybackraterate-number)
-      - [`setCurrentTime(time: number)`](#setcurrenttimetime-number)
-      - [`setVolume(volume: number)`](#setvolumevolume-number)
-      - [`setVideoStyleObjectFit(value: "contain" | "cover" | "fill" | "none" | "scale-down")`](#setvideostyleobjectfitvalue-contain--cover--fill--none--scale-down)
-      - [`setVideoStyleTransform(value: string)`](#setvideostyletransformvalue-string)
-      - [`setTheme(theme: PlayerTheme)`](#setthemetheme-playertheme)
-      - [`requestFullscreen()`](#requestfullscreen)
-      - [`exitFullscreen()`](#exitfullscreen)
-      - [`requestPictureInPicture()`](#requestpictureinpicture)
-      - [`exitPictureInPicture()`](#exitpictureinpicture)
-      - [`getPaused(callback?: (paused: boolean) => void): Promise<boolean>`](#getpausedcallback-paused-boolean--void-promiseboolean)
-      - [`getPlaying(callback?: (playing: boolean) => void): Promise<boolean>`](#getplayingcallback-playing-boolean--void-promiseboolean)
-      - [`getMuted(callback?: (muted: boolean) => void): Promise<boolean>`](#getmutedcallback-muted-boolean--void-promiseboolean)
-      - [`getDuration(callback?: (duration: number) => void): Promise<number>`](#getdurationcallback-duration-number--void-promisenumber)
-      - [`getCurrentTime(callback?: (currentTime: number) => void): Promise<number>`](#getcurrenttimecallback-currenttime-number--void-promisenumber)
-      - [`getVolume(callback?: (volume: number) => void): Promise<number>`](#getvolumecallback-volume-number--void-promisenumber)
-      - [`getLoop(callback?: (loop: boolean) => void): Promise<boolean>`](#getloopcallback-loop-boolean--void-promiseboolean)
-      - [`getPlaybackRate(callback?: (rate: number) => void): Promise<number>`](#getplaybackratecallback-rate-number--void-promisenumber)
-      - [`isLiveStream(callback?: (live: boolean) => void): Promise<boolean>`](#islivestreamcallback-live-boolean--void-promiseboolean)
-      - [`destroy()`](#destroy)
-      - [`addEventListener(event: string, callback: () => void)`](#addeventlistenerevent-string-callback---void)
   - [Full example](#full-example)
   - [Control an existing embedded player using the SDK](#control-an-existing-embedded-player-using-the-sdk)
   
@@ -430,28 +394,32 @@ Define a callback function that will be called when the given event is triggered
 
 Available events are the following:
 
-Event name            | Description | Parameter
----:                  | ---         | ---
-controlsdisabled      | Controls are now disabled | -
-controlsenabled       | Controls are now enabled | -
-ended                 | The playback as reached the ended of the video | -
-error                 | An error occured | -
-firstplay             | The video started to play for the first time | -
-fullscreenchange      | The player goes to (or goes back from) full screen | -
-mouseenter            | The user's mouse entered the player area | -
-mouseleave            | The user's mouse leaved the player area | -
-pause                 | The video has been paused | -
-play                  | The video started to play (for the first time or after having been paused) | -
-playerresize          | The player size has changed | -
-qualitychange         | The video quality has changed  | `{ resolution: { height: number, width: number } }`
-ratechange            | The playback rate has changed | -
-ready                 | The player is ready to play | -
-resize                | The video size has changed
-seeking               | The player is seeking | -
-timeupdate            | The playback time has changed  | `{ currentTime: number }`
-useractive            | The user is active | -
-userinactive          | The user is inactive | -
-volumechange          | The volume has changed  | `{ volume: number }`
+Event name             | Description | Parameter
+---:                   | ---         | ---
+airplayConnected       | Started to play on an airplay device | -
+airplayDisconnected    | Stopped to play on an airplay device | -
+chromecastConnected    | Started to play on a chromecast device | -
+chromecastDisconnected | Stopped to play on a chromecast device | -
+controlsdisabled       | Controls are now disabled | -
+controlsenabled        | Controls are now enabled | -
+ended                  | The playback as reached the ended of the video | -
+error                  | An error occured | -
+firstplay              | The video started to play for the first time | -
+fullscreenchange       | The player goes to (or goes back from) full screen | -
+mouseenter             | The user's mouse entered the player area | -
+mouseleave             | The user's mouse leaved the player area | -
+pause                  | The video has been paused | -
+play                   | The video started to play (for the first time or after having been paused) | -
+playerresize           | The player size has changed | -
+qualitychange          | The video quality has changed  | `{ resolution: { height: number, width: number } }`
+ratechange             | The playback rate has changed | -
+ready                  | The player is ready to play | -
+resize                 | The video size has changed
+seeking                | The player is seeking | -
+timeupdate             | The playback time has changed  | `{ currentTime: number }`
+useractive             | The user is active | -
+userinactive           | The user is inactive | -
+volumechange           | The volume has changed  | `{ volume: number }`
 
 Examples:
 ```javascript

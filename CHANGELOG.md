@@ -1,10 +1,15 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.2.27] - 2023-12-08
+- Add chromecast & airplay events
+
 ## [1.2.26] - 2023-10-05
 - Add isLiveStream()
+
 ## [1.2.25] - 2023-06-02
 - Add ads support
+
 ## [1.2.24] - 2023-03-03
 - Add `sequence` option
   
