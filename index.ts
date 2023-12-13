@@ -48,6 +48,12 @@ type SdkOptions = {
         start: number;
         end: number;
     }
+    // This feature is experimental.
+    // It may change or be removed at any time and could cause significant playback issues.
+    minimalQuality?: number;
+    // This feature is experimental.
+    // It may change or be removed at any time and could cause significant playback issues.
+    maximalQuality?: number;
 }
 
 type PlayerSdkEvent = {
@@ -173,6 +179,18 @@ export class PlayerSdk {
         this.postMessage({ message: 'setStyleProperty', query: "video", property: "object-fit", value }, undefined, false);
         this.postMessage({ message: 'setStyleProperty', query: ".vjs-poster", property: "background-size", value }, undefined, false);
     }
+
+    // This feature is experimental.
+    // It may change or be removed at any time and could cause significant playback issues.
+    setMinimalQuality(quality: number) {
+        this.postMessage({ message: "setMinimalQuality", quality})
+    };
+
+    // This feature is experimental.
+    // It may change or be removed at any time and could cause significant playback issues.
+    setMaximalQuality(quality: number) {
+        this.postMessage({ message: "setMaximalQuality", quality})
+    };
 
     hideControls(controls?: ControlName[]) {
         if(!controls) {
@@ -363,6 +381,14 @@ export class PlayerSdk {
 
         if (options.showSubtitles === true) {
             url = addParameterInIframeHash("show-subtitles");
+        }
+
+        if(options.minimalQuality !== undefined) {
+            url = addParameterInIframeHash(`min-quality:${encodeURIComponent(options.minimalQuality)}`);
+        }
+
+        if(options.maximalQuality !== undefined) {
+            url = addParameterInIframeHash(`max-quality:${encodeURIComponent(options.maximalQuality)}`);
         }
 
         if(options.ads?.adTagUrl) {
