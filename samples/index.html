@@ -1,29 +1,41 @@
 <html>
-
-<head>
+  <head>
     <script src="index.js"></script>
     <style>
-        #target {
-            width: 640px;
-            height: 480px;
-        }
+      #target {
+        width: 640px;
+        height: 480px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    <div id="target" />
+  <body>
+    <div style="display: flex; gap: 40px">
+      <div id="target"></div>
+      <div
+        class="blend-shapes-list"
+        style="
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          gap: 10px;
+          max-height: 450px;
+        "
+      ></div>
+    </div>
+    <video id="webcam" autoplay playsinline style="width: 0"></video>
     <script>
-        window.onload = function () {
-            const player = new PlayerSdk("#target", {
-                id: "vi2BgDGC8r4sspRnMblc4WVX",
-            });
-/*            
+      window.onload = function () {
+        const player = new PlayerSdk("#target", {
+          id: "vi2BgDGC8r4sspRnMblc4WVX",
+          allowFaceRecognition: true,
+        });
+        /*            
             setInterval(() => {
                 player.getPlaying().then(res => console.log(res));
             }, 100);
-*/            
-        };
+*/
+      };
     </script>
-</body>
-
-</html> 
+  </body>
+</html>
