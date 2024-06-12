@@ -1,3 +1,10 @@
+import {
+  FaceLandmarker,
+  FilesetResolver,
+  DrawingUtils,
+  FaceLandmarkerResult,
+} from "@mediapipe/tasks-vision";
+
 type UserEventListener = {
   event: string;
   callback: (data?: any) => void;
@@ -54,6 +61,9 @@ type SdkOptions = {
   // This feature is experimental.
   // It may change or be removed at any time and could cause significant playback issues.
   maximalQuality?: number;
+  // This feature is experimental.
+  // It may change or be removed at any time and could cause significant playback issues.
+  allowFaceRecognition?: boolean;
 };
 
 type PlayerSdkEvent = {
@@ -119,6 +129,8 @@ export class PlayerSdk {
 
   static nextSdkPlayerId: number = 1;
 
+  private webcamVideoElement: HTMLVideoElement | null = null;
+
   constructor(targetSelector: string | Element, userOptions?: SdkOptions) {
     this.sdkPlayerId = PlayerSdk.nextSdkPlayerId++;
 
@@ -145,6 +157,11 @@ export class PlayerSdk {
       this.createNewPlayer(this.iframe, options);
     } else {
       this.bindExistingPlayer(this.iframe);
+    }
+
+    if (options.allowFaceRecognition) {
+      console.log("ALLOW FACE RECOGNITION IS ENABLED");
+      this.createFaceRecognitionVideoElement(target);
     }
 
     this.onceSdkInSyncCallbacks = [];
@@ -649,5 +666,114 @@ export class PlayerSdk {
 
   private setIframeSrc(iframe: HTMLIFrameElement, url: string) {
     iframe.src = url;
+  }
+
+  private async createFaceRecognitionVideoElement(target: Element) {
+    function hasGetUserMedia() {
+      return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+    }
+
+    if (!hasGetUserMedia()) {
+      console.error("getUserMedia() is not supported by your browser");
+      return;
+    }
+    this.webcamVideoElement = document.getElementById(
+      "webcam"
+    ) as HTMLVideoElement;
+    if (!this.webcamVideoElement) {
+      console.error("webcamVideoElement not found");
+      return;
+    }
+    // await this.createFaceLandmarker();
+    const filesetResolver = await FilesetResolver.forVisionTasks(
+      "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
+    );
+    const faceLandmarker = await FaceLandmarker.createFromOptions(
+      filesetResolver,
+      {
+        baseOptions: {
+          modelAssetPath: `https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task`,
+          delegate: "GPU",
+        },
+        outputFaceBlendshapes: true,
+        runningMode: "VIDEO",
+        numFaces: 1,
+      }
+    );
+
+    // Activate the webcam stream.
+    navigator.mediaDevices
+      .getUserMedia({
+        video: true,
+      })
+      .then((stream) => {
+        this.webcamVideoElement!.srcObject = stream;
+        this.webcamVideoElement!.addEventListener("loadeddata", () =>
+          this.predictWebcam(faceLandmarker)
+        );
+      });
+  }
+
+  private predictWebcam(faceLandmarker: FaceLandmarker) {
+    let lastVideoTime = -1;
+    let results: FaceLandmarkerResult | undefined = undefined;
+    if (!faceLandmarker) {
+      console.error("FaceLandmarker not initialized");
+      return;
+    }
+    let startTimeMs = performance.now();
+    if (lastVideoTime !== this.webcamVideoElement!.currentTime) {
+      lastVideoTime = this.webcamVideoElement!.currentTime;
+      results = faceLandmarker.detectForVideo(
+        this.webcamVideoElement as HTMLVideoElement,
+        startTimeMs
+      );
+    }
+    if (results?.faceBlendshapes && results.faceBlendshapes[0]) {
+      let htmlMaker = "";
+      results.faceBlendshapes[0].categories.map((shape) => {
+        htmlMaker += `
+      <li class="blend-shapes-item" style="${
+        shape.score > 0.45 ? "background: red" : ""
+      }">
+        <span class="blend-shapes-label">${
+          shape.displayName || shape.categoryName
+        }</span>
+        <span class="blend-shapes-value" style="width: calc(${
+          +shape.score * 100
+        }% - 120px)">${(+shape.score).toFixed(4)}</span>
+      </li>
+    `;
+      });
+
+      const el = document.querySelector(".blend-shapes-list");
+      el!.innerHTML = htmlMaker;
+
+      // PLAY
+      const smile = results.faceBlendshapes[0].categories.find(
+        (shape) =>
+          shape.categoryName === "mouthSmileLeft" ||
+          shape.displayName === "mouthSmileLeft"
+      )?.score;
+      if (smile && smile > 0.6) this.play();
+
+      // PAUSE
+      const pucker = results.faceBlendshapes[0].categories.find(
+        (shape) =>
+          shape.categoryName === "mouthPucker" ||
+          shape.displayName === "mouthPucker"
+      )?.score;
+      if (pucker && pucker > 0.6) this.pause();
+
+      // SEEK 10 SECONDS BACKWARD
+      const leftBlink = results.faceBlendshapes[0].categories.find(
+        (shape) =>
+          shape.categoryName === "mouthPucker" ||
+          shape.displayName === "mouthPucker"
+      )?.score;
+      if (leftBlink && leftBlink > 0.4) this.pause();
+    }
+
+    window.requestAnimationFrame(() => this.predictWebcam(faceLandmarker));
   }
 }

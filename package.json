@@ -18,7 +18,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "tslint": "tslint --project .",
-    "dev": "webpack-dev-server --host 0.0.0.0 --open --mode development",
+    "dev": "webpack-dev-server --https --host 0.0.0.0 --open --mode development",
     "build": "npm run tslint && webpack --mode production",
     "test": "npm run tslint && mocha -r ts-node/register -r jsdom-global/register 'test/**/*.ts'",
     "prepublishOnly": "npm run build"
@@ -40,6 +40,7 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
+    "@mediapipe/tasks-vision": "^0.10.14",
     "core-js": "^3.8.3",
     "url-polyfill": "^1.1.12"
   }
