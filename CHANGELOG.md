@@ -2,6 +2,10 @@
 
 All changes to this project will be documented in this file.
 
+## [1.2.31] - 2024-06-19
+
+- Add ESM target
+
 ## [1.2.30] - 2024-06-19
 
 - Add hotkeys parameter
