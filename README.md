@@ -10,23 +10,24 @@
 ## Table of contents
 
 - [Table of contents](#table-of-contents)
-  - [Project description](#project-description)
-  - [Getting started](#getting-started)
-    - [Installation](#installation)
-      - [Method #1: requirejs](#method-1-requirejs)
-      - [Method #2: typescript](#method-2-typescript)
-      - [Method #2: simple include in a javascript project](#method-2-simple-include-in-a-javascript-project)
-  - [Documentation](#documentation)
-    - [Instantiation](#instantiation)
-      - [Ads](#ads)
-    - [Methods](#methods)
-    - [Full example](#full-example)
-    - [Control an existing embedded player using the SDK](#control-an-existing-embedded-player-using-the-sdk)
+- [Project description](#project-description)
+- [Getting started](#getting-started)
+  - [Installation](#installation)
+    - [Method #1: requirejs](#method-1-requirejs)
+    - [Method #2: typescript](#method-2-typescript)
+    - [Method #2: simple include in a javascript project](#method-2-simple-include-in-a-javascript-project)
+- [Documentation](#documentation)
+  - [Instantiation](#instantiation)
+    - [Ads](#ads)
+  - [Methods](#methods)
+  - [Full example](#full-example)
+  - [Control an existing embedded player using the SDK](#control-an-existing-embedded-player-using-the-sdk)
 
 <!--</documentation_excluded>-->
 
-## <!--<documentation_only>
+<!--<documentation_only>
 
+---
 title: api.video Player SDK
 meta:
 description: The official api.video Player SDK for api.video. [api.video](https://api.video/) is the video infrastructure for product builders. Lightning fast video APIs for integrating, scaling, and managing on-demand & low latency live streaming features in your app.

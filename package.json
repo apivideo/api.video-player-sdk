@@ -1,6 +1,6 @@
 {
   "name": "@api.video/player-sdk",
-  "version": "1.2.30",
+  "version": "1.2.31",
   "description": "api.video player SDK",
   "repository": {
     "type": "git",
@@ -14,16 +14,18 @@
     "apivideo"
   ],
   "main": "dist/index.js",
-  "module": "dist/index.js",
+  "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "tslint": "tslint --project .",
     "dev": "webpack-dev-server --host 0.0.0.0 --open --mode development",
-    "build": "npm run tslint && webpack --mode production",
+    "build": "npm run tslint && webpack --mode production && rollup -c",
     "test": "npm run tslint && mocha -r ts-node/register -r jsdom-global/register 'test/**/*.ts'",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "@types/chai": "^4.2.14",
     "@types/jsdom": "^16.2.6",
     "@types/mocha": "^9.0.0",
@@ -31,6 +33,8 @@
     "jsdom": "^16.4.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^9.1.3",
+    "rollup": "^4.18.0",
+    "rollup-plugin-typescript2": "^0.36.0",
     "ts-loader": "^9.2.6",
     "ts-node": "^9.1.1",
     "tslint": "^6.1.3",
