@@ -55,6 +55,7 @@ type SdkOptions = {
   // This feature is experimental.
   // It may change or be removed at any time and could cause significant playback issues.
   maximalQuality?: number;
+  hotKeys?: boolean;
 };
 
 type PlayerSdkEvent = {
@@ -444,6 +445,10 @@ export class PlayerSdk {
 
     if (options.hideControls === true) {
       url = addParameterInIframeHash("hide-controls");
+    }
+
+    if (options.hotKeys !== undefined && !options.hotKeys) {
+      url = addParameterInIframeHash("hotkeys:false");
     }
 
     if (options.chromeless === true) {
