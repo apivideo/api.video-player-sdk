@@ -450,7 +450,7 @@ Available events are the following:
 |                  ended | The playback as reached the ended of the video                             | -                                                   |
 |                  error | An error occured                                                           | -                                                   |
 |              firstplay | The video started to play for the first time                               | -                                                   |
-|       fullscreenchange | The player goes to (or goes back from) full screen                         | -                                                   |
+|       fullscreenchange | The player goes to (or goes back from) full screen                         | `{ isFullScreen: boolean }`                         |
 |             mouseenter | The user's mouse entered the player area                                   | -                                                   |
 |             mouseleave | The user's mouse leaved the player area                                    | -                                                   |
 |                  pause | The video has been paused                                                  | -                                                   |
