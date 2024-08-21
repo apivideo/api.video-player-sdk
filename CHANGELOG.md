@@ -2,6 +2,10 @@
 
 All changes to this project will be documented in this file.
 
+## [1.2.33] - 2024-08-21
+
+- Add `download()` method
+
 ## [1.2.32] - 2024-07-16
 
 - Add `isFullScreen` in `fullscreenchange` event
