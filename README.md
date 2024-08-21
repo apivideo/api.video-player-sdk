@@ -429,6 +429,11 @@ Retrieve the playback rate.
 
 Check whether the video is a live stream.
 
+**`download(filename?: string): void`**
+
+Download the video. If a filename is not provided, the default name 'video.mp4' will be used.
+An exception will be thrown if the video cannot be downloaded.
+
 **`destroy()`**
 
 Destroy the player instance.

@@ -376,6 +376,26 @@ export class PlayerSdk {
   getLoop(callback?: (loop: boolean) => void): Promise<boolean> {
     return this.postMessage({ message: "getLoop" }, callback);
   }
+  download(filename?: string) {
+    this.postMessage({ message: "getMp4Url" }, (res) => {
+      if (!res) {
+        throw new Error("This video is not downloadable");
+      }
+      fetch(res as string).then((response) => {
+        response.blob().then((blob) => {
+          const url = URL.createObjectURL(blob);
+
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = filename || "video.mp4";
+          link.target = "_blank";
+          link.click();
+
+          URL.revokeObjectURL(url);
+        });
+      });
+    });
+  }
   getVideoSize(
     callback?: (size: { width: number; height: number }) => void
   ): Promise<{ width: number; height: number }> {
@@ -637,6 +657,22 @@ export class PlayerSdk {
       );
     });
   }
+
+  private appendQueryParamIfMissing = (
+    url: string,
+    name: string,
+    value: string
+  ): string => {
+    const urlObj = new URL(url, document.location.href);
+    const urlSearchParams = new URLSearchParams(urlObj.search);
+    if (urlSearchParams.has(name)) {
+      return url;
+    }
+
+    urlSearchParams.append(name, value);
+    urlObj.search = urlSearchParams.toString();
+    return urlObj.toString();
+  };
 
   private makeId(length: number) {
     const characters =
